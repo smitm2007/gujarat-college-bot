@@ -1355,15 +1355,39 @@ body {
   transform: translateY(0);
 }
 
-/* RESPONSIVE DESIGN */
+/* ==============================================================================
+   SIDEBAR BACKDROP OVERLAY
+   ============================================================================== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==============================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE DEVICES)
+   ============================================================================== */
+
 @media (max-width: 900px) {
   .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
+    z-index: 999;
     transform: translateX(-100%);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
 
   .sidebar.open {
@@ -1388,6 +1412,257 @@ body {
 
   .input-dock {
     padding: 10px 16px 14px 16px;
+  }
+}
+
+/* SMARTPHONE OPTIMIZATIONS (iOS & ANDROID 320px - 768px) */
+@media (max-width: 768px) {
+  html, body, .app-layout {
+    height: 100dvh !important;
+    min-height: -webkit-fill-available;
+    overflow: hidden;
+  }
+
+  .chat-container {
+    height: 100dvh;
+    min-height: -webkit-fill-available;
+    overflow: hidden;
+  }
+
+  /* SIDEBAR DRAWER */
+  .sidebar {
+    width: 82vw;
+    max-width: 310px;
+    height: 100dvh;
+    min-height: -webkit-fill-available;
+  }
+
+  /* COMPACT TOPBAR */
+  .topbar {
+    height: 54px;
+    min-height: 54px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .topbar-left {
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .topbar-title h1 {
+    font-size: 14.5px;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .topbar-right {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  /* Icon-only touch buttons in topbar */
+  .export-pdf-topbar-btn span,
+  .help-btn span,
+  .supabase-topbar-btn span:not(.db-status-dot) {
+    display: none;
+  }
+
+  .export-pdf-topbar-btn,
+  .help-btn,
+  .supabase-topbar-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+  }
+
+  .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .mobile-menu-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* MESSAGES FEED */
+  .messages-feed {
+    padding: 12px 10px 14px 10px;
+    gap: 14px;
+  }
+
+  .welcome-card {
+    padding: 24px 12px;
+  }
+
+  .welcome-avatar {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
+  }
+
+  .welcome-avatar svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .welcome-card h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .welcome-desc {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .message-row {
+    gap: 8px;
+    width: 100%;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 11px;
+  }
+
+  .message-bubble {
+    max-width: calc(100% - 36px);
+    padding: 11px 13px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    border-radius: 14px;
+  }
+
+  .user .message-bubble {
+    max-width: 86%;
+    padding: 10px 13px;
+  }
+
+  .bot .message-bubble h3 {
+    font-size: 14.5px;
+    margin: 8px 0 6px 0;
+  }
+
+  .bot .message-bubble h4 {
+    font-size: 13.5px;
+    margin: 10px 0 4px 0;
+  }
+
+  .bot .message-bubble ul,
+  .bot .message-bubble ol {
+    margin: 6px 0 10px 16px;
+  }
+
+  /* Smooth horizontal scrolling for college data tables */
+  .bot table,
+  .bot .table-responsive {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 11.5px;
+    margin: 10px 0;
+  }
+
+  .bot th, .bot td {
+    padding: 6px 8px;
+  }
+
+  .bot-actions-toolbar {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+
+  .action-pill-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  /* SUGGESTIONS STRIP */
+  .suggestion-strip {
+    gap: 6px;
+    padding-bottom: 2px;
+  }
+
+  .strip-pill {
+    padding: 5px 10px;
+    font-size: 11.5px;
+  }
+
+  /* INPUT DOCK (MOBILE KEYBOARD SAFE) */
+  .input-dock {
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)) 10px;
+    gap: 6px;
+  }
+
+  .input-box-wrapper {
+    padding: 4px 6px 4px 12px;
+    border-radius: 20px;
+    gap: 6px;
+    min-height: 44px;
+  }
+
+  /* Prevent iOS Safari auto-zooming when tapping the input */
+  #queryInput {
+    font-size: 16px !important;
+    padding: 6px 0;
+    line-height: 1.4;
+  }
+
+  .input-actions {
+    gap: 4px;
+  }
+
+  .action-btn {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+  }
+
+  .action-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .input-hint {
+    display: none;
+  }
+
+  /* CENTERED MODALS ON SMALL SCREENS */
+  .modal-card,
+  .confirm-modal-card,
+  .supabase-modal-card {
+    width: calc(100vw - 28px);
+    max-width: calc(100vw - 28px);
+    margin: 14px;
+    padding: 20px 16px;
+  }
+
+  .confirm-modal-actions {
+    gap: 8px;
+  }
+
+  .btn-confirm-cancel,
+  .btn-confirm-delete {
+    padding: 9px 14px;
+    font-size: 13px;
   }
 }
 

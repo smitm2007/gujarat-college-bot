@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const openSidebarBtn = document.getElementById('openSidebarBtn');
   const closeSidebarBtn = document.getElementById('closeSidebarBtn');
   const sidebar = document.getElementById('sidebar');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
   const serverPillBadge = document.getElementById('serverPillBadge');
 
   // History & PDF DOM Elements
@@ -102,18 +103,39 @@ document.addEventListener('DOMContentLoaded', () => {
   pingBackend();
   setInterval(pingBackend, 12000);
 
-  // Mobile Sidebar Drawer
+  // Mobile Sidebar Drawer with Backdrop Overlay
+  function openMobileSidebar() {
+    if (sidebar) sidebar.classList.add('open');
+    if (sidebarOverlay) sidebarOverlay.classList.add('active');
+  }
+
+  function closeMobileSidebar() {
+    if (sidebar) sidebar.classList.remove('open');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+  }
+
   if (openSidebarBtn) {
-    openSidebarBtn.addEventListener('click', () => sidebar.classList.add('open'));
+    openSidebarBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openMobileSidebar();
+    });
   }
   if (closeSidebarBtn) {
-    closeSidebarBtn.addEventListener('click', () => sidebar.classList.remove('open'));
+    closeSidebarBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMobileSidebar();
+    });
+  }
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener('click', () => {
+      closeMobileSidebar();
+    });
   }
 
   document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 900 && sidebar.classList.contains('open')) {
+    if (window.innerWidth <= 900 && sidebar && sidebar.classList.contains('open')) {
       if (!sidebar.contains(e.target) && !openSidebarBtn.contains(e.target)) {
-        sidebar.classList.remove('open');
+        closeMobileSidebar();
       }
     }
   });
@@ -221,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         switchSession(sess.id);
         if (window.innerWidth <= 900) {
-          sidebar.classList.remove('open');
+          closeMobileSidebar();
         }
       });
 
@@ -249,6 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('gujaratedu_active_session_id');
     }
     renderHistorySidebar();
+    if (window.innerWidth <= 900) {
+      closeMobileSidebar();
+    }
     queryInput.focus();
   }
 
