@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GujaratEdu Science Guide | Higher Education Advisory</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h2>GujaratEdu</h2>
+            <span class="badge-sub">12th Science Guide</span>
+          </div>
+        </div>
+        <button class="icon-btn mobile-close" id="closeSidebarBtn" title="Close Sidebar" aria-label="Close Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="sidebar-status-banner">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span>55 Verified Institutions</span>
+        </div>
+        <p class="status-sub">Zero LLM APIs • 100% Deterministic NLP</p>
+      </div>
+
+      <div class="sidebar-action-bar">
+        <button class="new-chat-btn" id="newChatBtn" title="Start a fresh conversation">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          <span>New Chat</span>
+        </button>
+      </div>
+
+      <div class="sidebar-scrollable custom-scroll" id="historyContainer">
+        <div class="history-section-header">
+          <div class="history-title-group">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            <span class="history-title">CHAT HISTORY</span>
+          </div>
+          <span class="history-count" id="historyCount">0</span>
+        </div>
+        <div class="history-list" id="historyList">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="footer-btn" id="clearAllHistoryBtn" title="Clear all chat history">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
+          <span>Clear History</span>
+        </button>
+        <button class="footer-btn pdf-btn" id="exportPdfBtn" title="Export current chat as PDF document">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Export PDF</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CHAT AREA -->
+    <main class="chat-container">
+      <!-- TOP NAV -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-menu-btn" id="openSidebarBtn" title="Open Menu" aria-label="Open Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+          </button>
+          <div class="topbar-title">
+            <h1>Higher Education Advisory Bot</h1>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="export-pdf-topbar-btn" id="topbarExportPdfBtn" title="Export conversation as PDF">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span>Export PDF</span>
+          </button>
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+          <button class="help-btn" id="helpBtn" title="About Gujarat Education Guide">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <span>Guide Info</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- CHAT MESSAGE FEED -->
+      <section class="messages-feed" id="messagesFeed">
+        <!-- PRINT ONLY OFFICIAL HEADER -->
+        <div class="print-header" id="printHeader">
+          <div class="print-header-top">
+            <div class="print-emblem">🏛️ GUJARAT HIGHER EDUCATION ADVISORY</div>
+            <div class="print-date" id="printDate"></div>
+          </div>
+          <h2 class="print-title">Official Consultation Report: 12th Science Guidance</h2>
+          <p class="print-subtitle">ACPC Engineering & Pharmacy • ACPUGMEC Medical & Dental • MYSY & Kanya Kelavani Scholarships</p>
+          <hr class="print-divider">
+        </div>
+        <!-- WELCOME STATE (CHATGPT STYLE) -->
+        <div class="welcome-card" id="welcomeCard">
+          <div class="welcome-avatar">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <h2>What can I help you with today?</h2>
+          <p class="welcome-desc">
+            Ask any question about 12th Science admissions, ACPC & ACPUGMEC merit cutoffs, college fees, or career pathways in Gujarat.
+          </p>
+        </div>
+      </section>
+
+      <!-- DOCK INPUT AREA -->
+      <footer class="input-dock">
+        <!-- SUGGESTIONS JUST ABOVE SEARCH BAR -->
+        <div class="suggestion-strip" id="suggestionStrip">
+          <button class="strip-pill" data-query="Give me the names of private university of ahemdabad for btech">
+            <span>🏫</span> Private Univs in Ahmedabad
+          </button>
+          <button class="strip-pill" data-query="What is the fee for medical colleges in Gujarat?">
+            <span>🩺</span> Medical Colleges Fee Structure
+          </button>
+          <button class="strip-pill" data-query="Which colleges in Gujarat accept JEE Main?">
+            <span>🎯</span> Colleges Accepting JEE Main
+          </button>
+          <button class="strip-pill" data-query="Which engineering branch is best in Gujarat?">
+            <span>⚡</span> Best Branches in Gujarat
+          </button>
+          <button class="strip-pill" data-query="What scholarships are available for science students in Gujarat?">
+            <span>💎</span> MYSY & Free Education Rules
+          </button>
+          <button class="strip-pill" data-query="What to do if low marks in 12th science in Gujarat?">
+            <span>🧭</span> Options with Low Marks
+          </button>
+          <button class="strip-pill" data-query="How does ACPC engineering counseling work?">
+            <span>📊</span> ACPC Merit Formula
+          </button>
+        </div>
+
+        <div class="input-box-wrapper">
+          <textarea 
+            id="queryInput" 
+            rows="1" 
+            placeholder="Ask anything about 12th Science in Gujarat (e.g., 'DA-IICT vs Nirma', 'MBBS cutoffs', 'MYSY rules')..." 
+            autocomplete="off"
+            autofocus
+          ></textarea>
+
+          <div class="input-actions">
+            <button class="action-btn voice-btn" id="voiceBtn" title="Speak your query (Speech to Text)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8"/></svg>
+            </button>
+            <button class="action-btn send-btn" id="sendBtn" title="Send Question" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-7 14-2-5-5-2Z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="input-hint">
+          <span>Press <strong>Enter ↵</strong> to send, <strong>Shift + Enter</strong> for line break. 100% Link-Free direct answers.</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ABOUT MODAL -->
+  <div class="modal-backdrop" id="aboutModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>About GujaratEdu Science Guide</h3>
+        <button class="icon-btn modal-close" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Gujarat Higher Education QA Bot: After 12th Science</strong></p>
+        <p>This specialized advisory system assists students, parents, and counselors navigating higher education in Gujarat following GSEB / CBSE Class 12 Science.</p>
+        <div class="modal-list">
+          <div>🎯 <strong>Groups Covered:</strong> Group A (PCM), Group B (PCB), Group AB (PCMB)</div>
+          <div>🏛️ <strong>Admissions:</strong> ACPC (B.E./B.Tech, B.Pharm, D2D), ACPUGMEC (MBBS/BDS/AYUSH), GSAUCA (Agri), Kamdhenu (Vet)</div>
+          <div>💰 <strong>Scholarships:</strong> MYSY (₹2,00,000 / ₹50,000), Kanya Kelavani (100% Free Tuition for all girls in Govt Engg), TFWS</div>
+          <div>⚡ <strong>Architecture:</strong> Zero Generative LLM keys required, 100% deterministic NLP & curated Gujarat state database.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTERED DELETE CONFIRMATION MODAL -->
+  <div class="confirm-modal-backdrop" id="deleteConfirmModal" aria-hidden="true">
+    <div class="confirm-modal-card">
+      <div class="confirm-modal-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/>
+        </svg>
+      </div>
+      <h3 class="confirm-modal-title" id="confirmModalTitle">Delete Chat Session?</h3>
+      <p class="confirm-modal-message" id="confirmModalMessage">Are you sure you want to delete this chat? This action cannot be undone.</p>
+      <div class="confirm-modal-actions">
+        <button type="button" class="btn-confirm-cancel" id="confirmCancelBtn">Cancel</button>
+        <button type="button" class="btn-confirm-delete" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="knowledge.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
