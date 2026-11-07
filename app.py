@@ -26,7 +26,10 @@ except Exception as e:
     answer_query = lambda q: f"Error loading QA engine: {e}"
     INSTITUTIONS = []
 
-STATIC_DIR = os.path.join(CURRENT_DIR, "static")
+STATIC_DIR = CURRENT_DIR
+if os.path.exists(os.path.join(CURRENT_DIR, "static", "index.html")) and not os.path.exists(os.path.join(CURRENT_DIR, "index.html")):
+    STATIC_DIR = os.path.join(CURRENT_DIR, "static")
+
 SUPABASE_CONFIG_PATH = os.path.join(CURRENT_DIR, "supabase_config.json")
 
 # Optional requests library for HTTP calls
@@ -509,11 +512,45 @@ class GujaratEduHandler(SimpleHTTPRequestHandler):
             res = supabase_api_request("chat_history?order=created_at.asc", method="GET")
             return self._send_json_response(res)
 
-        # Map root to index.html
+        # Map root to index.html with multi-path resolution
         if self.path in ["", "/", "/index.html"]:
             self.path = "/index.html"
+            for candidate in [os.path.join(CURRENT_DIR, "index.html"), os.path.join(CURRENT_DIR, "static", "index.html")]:
+                if os.path.isfile(candidate):
+                    with open(candidate, "rb") as f:
+                        content = f.read()
+                    self.send_response(HTTPStatus.OK)
+                    self.send_header("Content-Type", "text/html; charset=utf-8")
+                    self.send_header("Content-Length", str(len(content)))
+                    self.end_headers()
+                    self.wfile.write(content)
+                    return
+
+        # Direct asset resolution fallback (style.css, app.js, knowledge.js, etc.)
+        clean_rel = self.path.split("?")[0].lstrip("/")
+        if clean_rel:
+            for base_dir in [CURRENT_DIR, os.path.join(CURRENT_DIR, "static")]:
+                target_path = os.path.join(base_dir, clean_rel)
+                if os.path.isfile(target_path):
+                    content_type, _ = mimetypes.guess_type(target_path)
+                    with open(target_path, "rb") as f:
+                        content = f.read()
+                    self.send_response(HTTPStatus.OK)
+                    self.send_header("Content-Type", content_type or "application/octet-stream")
+                    self.send_header("Content-Length", str(len(content)))
+                    self.end_headers()
+                    self.wfile.write(content)
+                    return
 
         super().do_GET()
+
+# ==============================================================================
+# VERCEL SERVERLESS FUNCTION ENTRYPOINTS
+# ==============================================================================
+handler = GujaratEduHandler
+app = GujaratEduHandler
+application = GujaratEduHandler
+
 
 
 def run_server(port=8000, open_browser=False):
