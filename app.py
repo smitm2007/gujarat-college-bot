@@ -545,11 +545,127 @@ class GujaratEduHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
 # ==============================================================================
-# VERCEL SERVERLESS FUNCTION ENTRYPOINTS
+# VERCEL SERVERLESS WSGI & HTTP APPLICATION
 # ==============================================================================
-handler = GujaratEduHandler
-app = GujaratEduHandler
-application = GujaratEduHandler
+
+def wsgi_application(environ, start_response):
+    """Standard WSGI entrypoint for Vercel Python Runtime."""
+    path = environ.get("PATH_INFO", "/")
+    method = environ.get("REQUEST_METHOD", "GET").upper()
+
+    cors_headers = [
+        ("Access-Control-Allow-Origin", "*"),
+        ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
+        ("Access-Control-Allow-Headers", "Content-Type, Authorization, apikey")
+    ]
+
+    if method == "OPTIONS":
+        start_response("204 No Content", cors_headers)
+        return [b""]
+
+    # 1. Main Chat Endpoint
+    if method == "POST" and path in ("/api/chat", "/api/chat/"):
+        try:
+            content_length = int(environ.get("CONTENT_LENGTH", 0))
+            raw_body = environ["wsgi.input"].read(content_length) if content_length > 0 else b"{}"
+            payload = json.loads(raw_body.decode("utf-8"))
+        except Exception:
+            payload = {}
+
+        query = payload.get("query", "").strip()
+        session_id = payload.get("session_id")
+        session_title = payload.get("session_title")
+
+        if not query:
+            resp_data = {
+                "status": "error",
+                "answer": "Please ask a question regarding higher education after 12th Science in Gujarat."
+            }
+        else:
+            try:
+                answer = answer_query(query)
+                success = True
+            except Exception as ex:
+                answer = f"Error generating answer: {ex}"
+                success = False
+
+            now_utc = datetime.now(timezone.utc)
+            created_at = now_utc.isoformat()
+            date_str = now_utc.strftime("%d %b %Y, %I:%M %p")
+
+            cfg = get_supabase_config()
+            client_url = payload.get("supabase_url") or cfg["url"]
+            client_key = payload.get("supabase_key") or cfg["key"]
+
+            supabase_saved = False
+            if (cfg["configured"] or (client_url and client_key)) and success and answer:
+                try:
+                    s_id = session_id or f"chat_{int(now_utc.timestamp())}"
+                    s_title = session_title or (query[:45] + "..." if len(query) > 45 else query)
+                    ok1, _ = save_chat_record_to_supabase(s_id, s_title, "user", query, created_at, date_str, override_url=client_url, override_key=client_key)
+                    ok2, _ = save_chat_record_to_supabase(s_id, s_title, "bot", answer, created_at, date_str, override_url=client_url, override_key=client_key)
+                    supabase_saved = (ok1 and ok2)
+                except Exception:
+                    pass
+
+            resp_data = {
+                "status": "success" if success else "error",
+                "answer": answer,
+                "created_at": created_at,
+                "date_str": date_str,
+                "supabase_saved": supabase_saved
+            }
+
+        out_bytes = json.dumps(resp_data, ensure_ascii=False).encode("utf-8")
+        headers = [
+            ("Content-Type", "application/json; charset=utf-8"),
+            ("Content-Length", str(len(out_bytes)))
+        ] + cors_headers
+        start_response("200 OK", headers)
+        return [out_bytes]
+
+    # 2. Colleges & Health API
+    if method == "GET" and path in ("/api/colleges", "/api/colleges/"):
+        out_bytes = json.dumps({"count": len(INSTITUTIONS), "institutions": INSTITUTIONS}, ensure_ascii=False).encode("utf-8")
+        headers = [("Content-Type", "application/json; charset=utf-8"), ("Content-Length", str(len(out_bytes)))] + cors_headers
+        start_response("200 OK", headers)
+        return [out_bytes]
+
+    if method == "GET" and path in ("/api/health", "/api/health/"):
+        out_bytes = json.dumps({"status": "online", "institution_count": len(INSTITUTIONS)}, ensure_ascii=False).encode("utf-8")
+        headers = [("Content-Type", "application/json; charset=utf-8"), ("Content-Length", str(len(out_bytes)))] + cors_headers
+        start_response("200 OK", headers)
+        return [out_bytes]
+
+    # 3. Serve Static Files (Homepage index.html, style.css, app.js, knowledge.js, etc.)
+    target_rel = "index.html" if path in ("", "/", "/index", "/index.html") else path.lstrip("/")
+    for base_dir in [CURRENT_DIR, os.path.join(CURRENT_DIR, "static")]:
+        candidate = os.path.join(base_dir, target_rel)
+        if os.path.isfile(candidate):
+            content_type, _ = mimetypes.guess_type(candidate)
+            if not content_type:
+                content_type = "text/html" if candidate.endswith(".html") else "application/octet-stream"
+            with open(candidate, "rb") as f:
+                content = f.read()
+            headers = [
+                ("Content-Type", f"{content_type}; charset=utf-8" if "text" in content_type or "javascript" in content_type else content_type),
+                ("Content-Length", str(len(content))),
+                ("Cache-Control", "public, max-age=0, must-revalidate")
+            ] + cors_headers
+            start_response("200 OK", headers)
+            return [content]
+
+    # 4. Fallback 404
+    not_found_body = b'{"error": "Not Found"}'
+    headers = [("Content-Type", "application/json"), ("Content-Length", str(len(not_found_body)))] + cors_headers
+    start_response("404 Not Found", headers)
+    return [not_found_body]
+
+# Export standard Vercel entrypoints
+app = wsgi_application
+application = wsgi_application
+handler = wsgi_application
+
 
 
 
