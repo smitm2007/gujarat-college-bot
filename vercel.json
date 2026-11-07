@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/", "destination": "/static/index.html" },
+    { "source": "/static/(.*)", "destination": "/static/$1" },
+    { "source": "/presentation", "destination": "/static/presentation.html" },
+    { "source": "/report", "destination": "/static/project_report_15_pages.html" },
+    { "source": "/(.*)", "destination": "/static/$1" }
+  ]
+}

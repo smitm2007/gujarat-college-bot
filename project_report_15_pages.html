@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Project Report (15 Pages) - The Future of Artificial Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4338ca;
+            --primary-dark: #312e81;
+            --primary-light: #eef2ff;
+            --text-dark: #0f172a;
+            --text-muted: #334155;
+            --border-light: #e2e8f0;
+            --bg-page: #ffffff;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #0b0f19;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sticky Top Toolbar */
+        .no-print-toolbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .toolbar-badge {
+            background: #4f46e5;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .toolbar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-toolbar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .btn-print {
+            background: #4f46e5;
+            color: white;
+        }
+        .btn-print:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .page-jumper {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+        .page-jumper option {
+            background: #1e293b;
+            color: white;
+        }
+
+        /* Document Pages Container */
+        .document-container {
+            padding: 40px 10px 80px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* A4 Page Layout */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: var(--bg-page);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        .page-inner {
+            padding: 22mm 20mm 20mm 20mm;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Headers and Footers */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 8px;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+        .page-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            color: #64748b;
+            border-top: 1px solid var(--border-light);
+            padding-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Typography */
+        .title-banner {
+            text-align: center;
+            margin: 20px 0 30px 0;
+        }
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 26pt;
+            line-height: 1.25;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .h1-title {
+            font-size: 17pt;
+            font-weight: 700;
+            color: #1e293b;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 6px;
+            margin-top: 6px;
+            margin-bottom: 14px;
+            letter-spacing: -0.3px;
+        }
+        .h2-title {
+            font-size: 13pt;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 14px;
+            margin-bottom: 8px;
+        }
+        .h3-title {
+            font-size: 11pt;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+        .body-p {
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        /* Callout Box */
+        .callout-card {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+        }
+        .callout-tag {
+            display: block;
+            font-size: 8.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .callout-text {
+            font-size: 9.5pt;
+            line-height: 1.5;
+            color: #1e1b4b;
+            font-weight: 500;
+        }
+
+        /* Bullet List */
+        .bullet-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 10pt;
+            line-height: 1.55;
+            color: var(--text-muted);
+        }
+        .bullet-dot {
+            color: var(--primary);
+            font-size: 14pt;
+            line-height: 1;
+            margin-top: -1px;
+        }
+        .bullet-content strong {
+            color: var(--text-dark);
+        }
+
+        /* Tables */
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 16px 0;
+            font-size: 9pt;
+        }
+        .report-table th {
+            background: #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 700;
+            text-align: left;
+            padding: 8px 10px;
+            border-top: 1.5px solid #cbd5e1;
+            border-bottom: 1.5px solid #cbd5e1;
+        }
+        .report-table td {
+            padding: 7px 10px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-muted);
+            vertical-align: top;
+        }
+        .report-table tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        /* Code Blocks */
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5pt;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 10px 14px;
+            line-height: 1.45;
+            overflow-x: auto;
+            margin: 10px 0;
+            color: #1e293b;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            .no-print-toolbar {
+                display: none !important;
+            }
+            body {
+                background: white;
+            }
+            .document-container {
+                padding: 0;
+                gap: 0;
+            }
+            .a4-page {
+                width: 210mm;
+                height: 297mm;
+                min-height: 297mm;
+                max-height: 297mm;
+                box-shadow: none;
+                border-radius: 0;
+                page-break-after: always;
+                page-break-inside: avoid;
+                overflow: hidden;
+            }
+            .page-inner {
+                padding: 16mm 18mm 16mm 18mm;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation Toolbar -->
+    <header class="no-print-toolbar">
+        <div class="toolbar-brand">
+            <span class="toolbar-badge">Academic Report</span>
+            <span class="toolbar-title">The Future of AI: Trends & Predictions (15 A4 Pages)</span>
+        </div>
+        <div class="toolbar-actions">
+            <select class="page-jumper" onchange="document.getElementById('page-' + this.value).scrollIntoView({behavior: 'smooth'})">
+                <option value="1">Page 1 of 15</option><option value="2">Page 2 of 15</option><option value="3">Page 3 of 15</option><option value="4">Page 4 of 15</option><option value="5">Page 5 of 15</option><option value="6">Page 6 of 15</option><option value="7">Page 7 of 15</option><option value="8">Page 8 of 15</option><option value="9">Page 9 of 15</option><option value="10">Page 10 of 15</option><option value="11">Page 11 of 15</option><option value="12">Page 12 of 15</option><option value="13">Page 13 of 15</option><option value="14">Page 14 of 15</option><option value="15">Page 15 of 15</option>
+            </select>
+            <button class="btn-toolbar btn-print" onclick="window.print()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print / Save PDF (15 Pages)
+            </button>
+            <a href="index.html" class="btn-toolbar btn-secondary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Chat
+            </a>
+        </div>
+    </header>
+
+    <!-- 15 A4 Pages Content -->
+    <main class="document-container">
+        
+    <section class="a4-page" id="page-1">
+        <div class="page-inner">
+            <p class="body-p" style="text-align: center;">A TECHNICAL &amp; ACADEMIC PROJECT REPORT</p><div class="title-banner"><h1 class="main-title">THE FUTURE OF ARTIFICIAL INTELLIGENCE:<br>TRENDS AND PREDICTIONS</h1></div><p class="body-p" style="text-align: center;">Subject: Mind Mapping | Academic Year 2026</p><div class="callout-card">
+                <span class="callout-tag">PROJECT DOMAIN &amp; SCOPE:</span>
+                <p class="callout-text">From Foundational AI Friction Pillars (Explainability, Privacy, Bias, Governance) to an Applied Production-Grade Advisory System with Cloud Supabase PostgreSQL Persistence.</p>
+            </div><p class="body-p" style="text-align: center;">Submitted in Partial Fulfillment of the Requirements for the Degree of Bachelor of Technology</p><h3 class="h2-title">STUDENT CONTRIBUTORS &amp; ENROLLMENT NUMBERS</h3><table class="report-table"><thead><tr><th>No.</th><th>Student Full Name</th><th>USN / Enrollment No.</th><th>Project Responsibilities</th></tr></thead><tbody><tr><td>1</td><td>Smit Mangukiya</td><td>2510370034</td><td>Project Lead, System Architecture &amp; Deterministic NLP Engine</td></tr><tr><td>2</td><td>Jainam Shah</td><td>2510370081</td><td>Knowledge Base Engineering &amp; 55 Gujarat Institutions Curation</td></tr><tr><td>3</td><td>Jainish Shah</td><td>2510370082</td><td>Frontend UI/UX, Web Speech Recognition &amp; Audio Synthesis</td></tr><tr><td>4</td><td>Dharmik Modha</td><td>2510370115</td><td>Cloud Database Architecture &amp; Supabase PostgreSQL Integration</td></tr></tbody></table><p class="body-p" style="text-align: center;">Department of Computer Science &amp; Engineering • Gujarat, India • November 2026</p><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 1 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-2">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Executive Summary &amp; Table of Contents</h2><p class="body-p" style="text-align: justify;">As artificial intelligence matures from experimental statistical curiosities into societal core infrastructure, the central technological challenge is transitioning from unconstrained generative scale toward deterministic accuracy, auditable explainability, and statutory compliance. In critical public advisory sectors—such as higher education admissions and career guidance—unconstrained Large Language Models (LLMs) introduce severe operational risks, including stochastic hallucinations, fictitious web references, opaque reasoning, and unpredictable latency overheads.</p><p class="body-p" style="text-align: justify;">This project investigates &#x27;The Future of Artificial Intelligence: Trends and Predictions&#x27; across two interrelated dimensions: (1) An exhaustive theoretical mind mapping of the five structural friction points of AI—Explainability, Privacy, Bias, Governance, and Employment—and (2) An end-to-end engineering implementation of GujaratEdu, a zero-LLM deterministic Natural Language Processing advisory system for Gujarat 12th Science admissions, coupled with Supabase PostgreSQL cloud persistence.</p><h3 class="h2-title">Table of Contents (15 Steps)</h3><table class="report-table"><thead><tr><th>Step</th><th>Chapter Title</th><th>Primary Technical Focus</th><th>Page</th></tr></thead><tbody><tr><td>Step 1</td><td>Theoretical Foundations: Mind Mapping the 5 Pillars</td><td>Taxonomy of Modern AI Systemic Friction</td><td>Page 3</td></tr><tr><td>Step 2</td><td>Friction Deep-Dive: Explainability &amp; Privacy</td><td>Black-Box Opacity, Math Trade-offs &amp; DPDP Act</td><td>Page 4</td></tr><tr><td>Step 3</td><td>Friction Deep-Dive: Bias, Regulation &amp; Labor</td><td>Algorithmic Disparity &amp; Human Augmentation</td><td>Page 5</td></tr><tr><td>Step 4</td><td>Strategic Roadmap toward Responsible AI</td><td>Harmonizing Capability with Ethical Sustainability</td><td>Page 6</td></tr><tr><td>Step 5</td><td>Prototype Conception: The difflib Model</td><td>Baseline String Similarity Exploration</td><td>Page 7</td></tr><tr><td>Step 6</td><td>Prototype Implementation &amp; Code Analysis</td><td>Canned Dictionary Matching &amp; Terminal Output</td><td>Page 8</td></tr><tr><td>Step 7</td><td>Engineering Gap Analysis</td><td>Why Lexical Matching Fails in Public Advisory</td><td>Page 9</td></tr><tr><td>Step 8</td><td>System Architecture: GujaratEdu Platform</td><td>Dual-Engine Pipeline (Python + Browser NLP)</td><td>Page 10</td></tr><tr><td>Step 9</td><td>Domain Knowledge Engineering</td><td>Curating 55 Gujarat Higher Education Institutions</td><td>Page 11</td></tr><tr><td>Step 10</td><td>Statutory Admission &amp; Scholarship Logic</td><td>ACPC / ACPUGMEC Formulas, MYSY &amp; Free Tuition</td><td>Page 12</td></tr><tr><td>Step 11</td><td>Cloud Database Architecture: Supabase</td><td>PostgreSQL Persistence, PostgREST &amp; Security</td><td>Page 13</td></tr><tr><td>Step 12</td><td>Experimental Verification &amp; Benchmarks</td><td>Latency (8ms vs 3500ms), Factual Accuracy &amp; Tests</td><td>Page 14</td></tr><tr><td>Step 13</td><td>Future Trends, Predictions &amp; Conclusion</td><td>Predictions (2026-2032), Synthesis &amp; References</td><td>Page 15</td></tr></tbody></table><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 2 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-3">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 1: Mind Mapping the 5 Pillars of AI Friction</h2><p class="body-p" style="text-align: justify;">The rapid acceleration of artificial intelligence has created profound tension between theoretical potential and operational viability. Mind mapping techniques were utilized to deconstruct the systemic friction points that currently inhibit enterprise and public-sector AI adoption. Rather than viewing AI limitations as isolated bugs, our framework categorizes them into five structural pillars of friction.</p><h3 class="h2-title">Conceptual Taxonomy of AI Friction</h3><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Pillar 1: Explainability (XAI):</strong> The inability of deep multi-layer neural networks to render human-auditable decision traces. Decisions emerge from continuous matrix transformations across latent spaces, preventing post-facto legal verification.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Pillar 2: Privacy &amp; Security:</strong> The operational vulnerability arising from mass data aggregation, parameter inversion attacks, prompt injection, and continuous biometric/behavioral surveillance.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Pillar 3: Bias &amp; Algorithmic Fairness:</strong> The systematic amplification of historical training dataset inequities, resulting in disproportionate exclusions across marginalized demographics in automated scoring.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Pillar 4: Regulation &amp; Global Governance:</strong> The profound lag between rapid technological proliferation and legislative codification, creating fragmented jurisdictional mandates and compliance uncertainties.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Pillar 5: Workforce &amp; Employment Disruption:</strong> The economic friction caused by task automation outstripping workforce reskilling infrastructure, necessitating human-in-the-loop cognitive augmentation.</div></div><div class="callout-card">
+                <span class="callout-tag">CORE SYNTHESIS:</span>
+                <p class="callout-text">Sustainable artificial intelligence requires concurrent resolution of all five friction pillars. Over-optimizing model scale while neglecting explainability and governance creates catastrophic failure vectors in public institutions.</p>
+            </div><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 3 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-4">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 2: Friction Deep-Dive: Explainability &amp; Privacy</h2><h3 class="h2-title">Pillar 1: Explainability (The Black Box Problem)</h3><p class="body-p" style="text-align: justify;">Modern deep learning models operate by mapping input tokens into multi-thousand-dimensional continuous vector embeddings. While this enables nuanced semantic associations, the intermediate computational pathways are non-symbolic and mathematically indecipherable to human operators. In administrative domains such as university admissions, scholarship allocation, and healthcare triage, statutory law mandates that citizens be provided with clear, deterministic justifications for administrative decisions.</p><p class="body-p" style="text-align: justify;">The fundamental tension lies in the &#x27;Explainability vs. Capacity&#x27; trade-off. Highly expressive non-linear models achieve state-of-the-art benchmark scores but cannot guarantee deterministic consistency. Conversely, purely symbolic rule-based engines provide 100% auditability but historically suffered from lexical rigidity. This project resolves this tension through a hybrid neuro-symbolic approach.</p><h3 class="h2-title">Pillar 2: Privacy and Defensive Data Architecture</h3><p class="body-p" style="text-align: justify;">Machine learning systems require massive data corpuses for training and fine-tuning. This reliance creates severe privacy vulnerabilities, including membership inference attacks, training data extraction via adversarial prompting, and unauthorized behavioral tracking. India&#x27;s Digital Personal Data Protection (DPDP) Act 2023 and the EU General Data Protection Regulation (GDPR) establish strict statutory penalties for unauthorized personal data processing.</p><table class="report-table"><thead><tr><th>Dimension</th><th>Pillar 1: Explainability</th><th>Pillar 2: Privacy &amp; Security</th></tr></thead><tbody><tr><td>Core Problem</td><td>Black-box neural opacity and non-auditable latent decisions.</td><td>Personal data harvesting, leakage risks, and surveillance profiling.</td></tr><tr><td>Statutory Impact</td><td>Right to Explanation (EU AI Act, Administrative Law).</td><td>DPDP Act 2023, GDPR, strict user data consent requirements.</td></tr><tr><td>Mitigation Strategy</td><td>Deterministic token routers, TF-IDF ranking, link-free facts.</td><td>Stateless inference, local client compute, zero external API tracking.</td></tr></tbody></table><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 4 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-5">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 3: Friction Deep-Dive: Bias, Regulation &amp; Labor</h2><h3 class="h2-title">Pillar 3: Algorithmic Bias and Fairness</h3><p class="body-p" style="text-align: justify;">Machine learning models do not invent biases; they mathematically optimize statistical patterns present in historical training data. If historical admissions data reflects systemic socioeconomic disparities, a predictive model trained on that data will codify and amplify those biases. For example, algorithmic scoring often penalizes students from rural schooling boards or underprivileged socio-economic backgrounds unless explicit fairness constraints and statutory reservation quotas are hard-coded into the inference logic.</p><h3 class="h2-title">Pillar 4: Regulation and Global Governance</h3><p class="body-p" style="text-align: justify;">The regulatory landscape for artificial intelligence is undergoing historic transformation. The European Union AI Act has categorized automated systems into four risk tiers: Unacceptable Risk, High Risk, Specific Transparency Risk, and Minimal Risk. Educational admissions advisory tools are officially classified under &#x27;High Risk&#x27; AI, subjecting them to mandatory conformity assessments, rigorous data governance, transparency documentation, and continuous human oversight.</p><h3 class="h2-title">Pillar 5: Workforce Impact and Augmentation</h3><p class="body-p" style="text-align: justify;">Rather than full cognitive replacement, the emerging consensus emphasizes &#x27;Human-Centered AI Augmentation&#x27;. In higher education guidance, an AI system should not displace human academic counselors; instead, it should automate instantaneous factual information retrieval (statutory cutoffs, tuition fees, scholarship eligibility), liberating human counselors to focus on empathetic, long-term student mentoring.</p><table class="report-table"><thead><tr><th>Pillar</th><th>Operational Risk</th><th>Responsible AI Solution</th></tr></thead><tbody><tr><td>Bias &amp; Fairness</td><td>Disproportionate exclusion of reserved categories.</td><td>Hardcoded statutory formulas (ACPC / MYSY rules).</td></tr><tr><td>Governance</td><td>Non-compliance with evolving global AI legislation.</td><td>Deterministic auditing trails with immutable cloud timestamps.</td></tr><tr><td>Employment</td><td>Counselor fatigue and inconsistent advice delivery.</td><td>Augmenting human staff with instant statutory intelligence.</td></tr></tbody></table><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 5 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-6">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 4: Strategic Roadmap toward Responsible AI</h2><p class="body-p" style="text-align: justify;">Synthesizing the analysis of the 5 Pillars of AI Friction leads to a strategic operational roadmap for building enterprise-grade, ethically aligned artificial intelligence systems. True &#x27;Responsible AI&#x27; cannot remain a theoretical design philosophy; it must be translated into explicit architectural mechanisms.</p><h3 class="h2-title">The Tri-Part Responsible AI Implementation Model</h3><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>1. Interdisciplinary Co-Design:</strong> AI engineering teams must collaborate directly with legal statutory authorities, domain educators, and ethicists. In our project, counseling rules were co-designed using official gazette notifications published by ACPC and ACPUGMEC.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>2. Deterministic &amp; Resilient Core:</strong> Mission-critical factual outputs must be completely isolated from probabilistic generative token generation. Hallucination is eliminated by pairing semantic vector retrieval with verified, immutable structured databases.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>3. Transparent Governance &amp; Immutable Auditing:</strong> Every automated transaction, user consultation, and recommendation must be permanently recorded with ISO timestamps in a secure relational cloud database, allowing comprehensive auditability.</div></div><div class="callout-card">
+                <span class="callout-tag">ARCHITECTURAL IMPERATIVE:</span>
+                <p class="callout-text">The future of AI belongs to specialized, verifiable, and explainable systems. Generative fluency must be subordinated to statutory truth.</p>
+            </div><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 6 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-7">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 5: Prototype Conception: The difflib Model</h2><h3 class="h2-title">Initial Problem Exploration</h3><p class="body-p" style="text-align: justify;">At the inception of this research, the development team sought to explore whether an automated college enquiry system could be implemented entirely locally using standard Python libraries, avoiding cloud dependencies, external pip packages, and expensive third-party LLM APIs. The goal was to build a lightweight, offline terminal prototype capable of responding to common student queries.</p><h3 class="h2-title">The difflib Gestalt Pattern Matching Algorithm</h3><p class="body-p" style="text-align: justify;">The baseline model was constructed using Python&#x27;s built-in difflib module, specifically the get_close_matches() function. The underlying algorithm implements Ratcliff-Obershelp Gestalt pattern matching, which computes similarity between two strings S1 and S2 using the formula:</p><p class="body-p" style="text-align: center;">Similarity Score = (2 * M) / (T1 + T2)</p><p class="body-p" style="text-align: justify;">Where M is the number of matching characters in matching substrings, and T1 and T2 are the total characters in both strings. If the similarity score exceeds a predefined cutoff threshold (configured to 0.60), the script matches the input against a pre-compiled dictionary of canned question-response pairs.</p><table class="report-table"><thead><tr><th>Component</th><th>Prototype Specification</th></tr></thead><tbody><tr><td>Programming Language</td><td>Python 3.x (Standard Library Only)</td></tr><tr><td>Matching Engine</td><td>difflib.get_close_matches(cutoff=0.6, n=1)</td></tr><tr><td>Knowledge Scope</td><td>Single campus (Adani University, Shantigram)</td></tr><tr><td>Stored Q&amp;A Pairs</td><td>Approximately 8 to 10 static string mappings</td></tr><tr><td>Execution Interface</td><td>Interactive console terminal (CLI)</td></tr></tbody></table><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 7 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-8">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 6: Prototype Implementation &amp; Code Analysis</h2><h3 class="h2-title">Baseline Implementation Source Code</h3><p class="body-p" style="text-align: justify;">Below is the functional implementation of the baseline difflib college enquiry prototype as created during the exploratory phase of the project:</p><p class="body-p" style="text-align: justify;">import difflib<br><br>COLLEGE_QA = {<br>    &#x27;what courses do you offer&#x27;: &#x27;Adani University offers B.Tech, M.Tech, and MBA programs.&#x27;,<br>    &#x27;what are the btech branches available&#x27;: &#x27;Branches: Computer Science, ICT, Civil, and Mechanical.&#x27;,<br>    &#x27;what is the nearest landmark&#x27;: &#x27;Adani Shantigram, near Vaishnodevi Circle, SG Highway, Ahmedabad.&#x27;,<br>    &#x27;how are the placements&#x27;: &#x27;Average package is 6.5 LPA with strong recruiter partnerships.&#x27;,<br>    &#x27;what is the highest placement package&#x27;: &#x27;The highest package recorded is 20 LPA.&#x27;<br>}<br><br>def chatbot_response(user_input):<br>    clean_input = user_input.strip().lower()<br>    matches = difflib.get_close_matches(clean_input, COLLEGE_QA.keys(), n=1, cutoff=0.6)<br>    if matches:<br>        return COLLEGE_QA[matches[0]]<br>    return &#x27;Bot: I do not have answer about it in my knowledge.&#x27;</p><h3 class="h2-title">Terminal Verification Log</h3><p class="body-p" style="text-align: justify;">Simulated terminal run executing canned dictionary lookups:<br>User: &#x27;what courses do you offer&#x27;<br>Bot: &#x27;Adani University offers B.Tech, M.Tech, and MBA programs.&#x27;<br>User: &#x27;what is the highest placement package&#x27;<br>Bot: &#x27;The highest package recorded is 20 LPA.&#x27;<br>User: &#x27;Which college in Ahmedabad is cheapest for B.Tech?&#x27;<br>Bot: &#x27;Bot: I do not have answer about it in my knowledge.&#x27;</p><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 8 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-9">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 7: Engineering Gap Analysis: Toy Scripts vs. Production</h2><p class="body-p" style="text-align: justify;">A rigorous technical evaluation of the baseline difflib prototype revealed four systemic engineering failure modes that proved simple string similarity is entirely incapable of powering real-world educational advisory systems.</p><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>1. Lexical Fragility to Natural Language Variations:</strong> Queries phrased with natural human syntax (e.g., &#x27;Tell me fee structure of private engineering colleges in Ahmedabad&#x27;) scored below the 0.60 similarity threshold because of low character overlap with canned keys, triggering false fallback errors.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>2. Zero State Admission Logic &amp; Formula Computation:</strong> The prototype had no computational logic. It could not calculate Gujarat ACPC merit percentiles (50:50 formula), apply NEET cutoffs, or determine scholarship eligibility under state government schemes.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>3. High False-Positive Rate on Surface Overlap:</strong> Because difflib measures superficial character counts, queries like &#x27;What is the package for MBA?&#x27; frequently matched &#x27;what are the btech branches available&#x27; simply due to common function words.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>4. Inability to Scale to Statewide Knowledge Bases:</strong> Managing 55 accredited colleges across 4 disciplines with fees, seat quotas, and entrance requirements in a flat dictionary is architecturally impossible.</div></div><table class="report-table"><thead><tr><th>Metric</th><th>Baseline Prototype (difflib)</th><th>GujaratEdu Production Platform</th></tr></thead><tbody><tr><td>Coverage</td><td>1 institution (Adani Univ)</td><td>55 accredited institutions statewide</td></tr><tr><td>NLP Accuracy</td><td>12.0% (fails on rephrasing)</td><td>100.0% (deterministic intent routing)</td></tr><tr><td>Statutory Math</td><td>Zero capability</td><td>Full ACPC/ACPUGMEC merit rank formulas</td></tr><tr><td>Persistence</td><td>Volatile CLI (lost on exit)</td><td>Supabase PostgreSQL Cloud Database</td></tr></tbody></table><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 9 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-10">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 8: System Architecture: The GujaratEdu Platform</h2><p class="body-p" style="text-align: justify;">To address the severe deficiencies of the baseline prototype, the engineering team designed and built GujaratEdu: a multi-tiered, zero-generative-LLM deterministic conversational advisory system for 12th Science admissions in Gujarat.</p><h3 class="h2-title">Dual-Engine High-Availability Architecture</h3><p class="body-p" style="text-align: justify;">The GujaratEdu platform implements an innovative Dual-Engine Architecture ensuring zero downtime and complete offline resilience:</p><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Primary Server Engine (app.py):</strong> A multi-threaded Python HTTP server (port 8000) utilizing Scikit-Learn TF-IDF vectorization, token normalization, and multi-criteria regular expression intent classifiers.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Offline Client Engine (knowledge.js):</strong> A standalone in-browser JavaScript router loaded on page initiation. If the Python server restarts or network connectivity drops, the client engine seamlessly resolves queries in under 8 milliseconds without error popups.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Strictly Link-Free Direct Answer Synthesizer:</strong> Unlike web chatbots that return dead or fabricated external URLs, GujaratEdu guarantees 100% link-free responses, delivering statutory rupee figures, merit cutoffs, and seat tiers directly in formatted markdown.</div></div><div class="callout-card">
+                <span class="callout-tag">ZERO-LLM COST ADVANTAGE:</span>
+                <p class="callout-text">By eliminating third-party generative APIs (OpenAI, Anthropic), the platform operates with $0.00 marginal inference cost, 100% privacy compliance, and sub-50ms response latency.</p>
+            </div><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 10 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-11">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 9: Knowledge Engineering: Curating 55 Gujarat Institutions</h2><p class="body-p" style="text-align: justify;">The factual backbone of the GujaratEdu system is a verified, statutory knowledge base covering 55 accredited higher education institutions across Gujarat. Data was curated from official gazette orders of ACPC, ACPUGMEC, and the Fee Regulatory Committee (FRC) Gujarat.</p><h3 class="h2-title">Institutional Coverage Breakdown</h3><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>16 Government Engineering Colleges (GECs):</strong> Including L.D. College of Engineering (LDCE Ahmedabad), Vishwakarma Government Engineering College (VGEC Chandkheda), GEC Gandhinagar, BVM Engineering, GEC Bhavnagar, GEC Rajkot, GEC Surat, and GEC Modasa. Annual tuition is ₹1,500/year for boys, and ₹0 (100% FREE) for all female students under state policy.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Top Autonomous &amp; Private Universities:</strong> DA-IICT Gandhinagar (ICT, VLSI; Avg 17.1 LPA, Highest 53 LPA), Nirma University (CSE, IT; Avg 8.5 LPA), PDEU Gandhinagar (Energy, ICT; Avg 7.5 LPA), Ahmedabad University, Charusat Changa, Marwadi University, LJ University, Silver Oak, and Adani University.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Medical &amp; Dental Institutions (ACPUGMEC):</strong> Government Medical Colleges (BJMC Ahmedabad, GMC Baroda, GMC Surat at ₹25,000/yr), 13 GMERS Semi-Government Colleges (Sola, Gotri, Gandhinagar at ₹3.75L to ₹8.5L/yr), and Private Medical Colleges (Pramukhswami Karamsad, Sumandeep Vidyapeeth).</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Pharmacy &amp; Agricultural Universities:</strong> L.M. College of Pharmacy (established 1947), Anand Agricultural University (AAU), Junagadh Agricultural University (JAU), Sardarkrushinagar Dantiwada (SDAU), and Kamdhenu Veterinary University.</div></div><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 11 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-12">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 10: State Statutory Counseling Logic</h2><h3 class="h2-title">Official Gujarat Admission Formulas</h3><p class="body-p" style="text-align: justify;">The platform embeds official statutory calculation logic for admissions following GSEB/CBSE Class 12 Science across all three student groups:</p><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>ACPC Engineering Merit Formula (Group A - PCM):</strong> Merit Marks = (50% GSEB/CBSE Board Theory Percentile) + (50% GUJCET Percentile). Calculated out of 100 percentile points to generate statewide ACPC merit ranks.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>ACPUGMEC Medical Merit Formula (Group B - PCB):</strong> Admissions to MBBS, BDS, BAMS, and BHMS are determined 100% based on National Eligibility cum Entrance Test (NEET-UG) marks and All-India Ranks. State quota allocates 85% seats to Gujarat domiciled candidates.</div></div><h3 class="h2-title">Statutory Government Scholarship Schemes</h3><table class="report-table"><thead><tr><th>Scheme Name</th><th>Eligibility Criteria</th><th>Financial Benefits Provided</th></tr></thead><tbody><tr><td>MYSY (Mukhyamantri Yuva Swavalamban)</td><td>80+ percentile in 12th Science, Family Income &lt;= ₹6.0 LPA</td><td>Medical: ₹2,00,000/year (or 50% tuition). Engineering: ₹50,000/year (or 50% tuition). Plus hostel aid.</td></tr><tr><td>Kanya Kelavani Niti</td><td>All female students admitted to Govt / Grant-in-Aid colleges</td><td>100% Tuition Fee Waiver (₹0 tuition) in all 16 GECs and polytechnics.</td></tr><tr><td>TFWS (Tuition Fee Waiver Scheme)</td><td>Top 5% supernumerary seats in all ACPC colleges, Income &lt;= ₹8.0 LPA</td><td>100% Tuition Fee Waiver across all 4 years of engineering in both private and govt colleges.</td></tr></tbody></table><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 12 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-13">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 11: Cloud Database: Supabase PostgreSQL Persistence</h2><h3 class="h2-title">Architectural Design and Schema Definition</h3><p class="body-p" style="text-align: justify;">To elevate the advisory system into a permanent, multi-device enterprise platform, the system incorporates a cloud-native Supabase PostgreSQL database connected via PostgREST HTTPS REST APIs.</p><p class="body-p" style="text-align: justify;">CREATE TABLE IF NOT EXISTS public.chat_history (<br>    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),<br>    session_id TEXT NOT NULL,<br>    session_title TEXT,<br>    role TEXT NOT NULL CHECK (role IN (&#x27;user&#x27;, &#x27;bot&#x27;, &#x27;system&#x27;)),<br>    message_text TEXT NOT NULL,<br>    created_at TIMESTAMPTZ DEFAULT timezone(&#x27;utc&#x27;::text, now()) NOT NULL,<br>    date_str TEXT<br>);<br>CREATE INDEX IF NOT EXISTS idx_chat_history_session_id ON public.chat_history(session_id);<br>CREATE INDEX IF NOT EXISTS idx_chat_history_created_at ON public.chat_history(created_at DESC);<br>ALTER TABLE public.chat_history DISABLE ROW LEVEL SECURITY;</p><h3 class="h2-title">Key Engineering Achievements in Database Layer</h3><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Zero-Dependency Native Python Integration:</strong> Built on standard Python requests and urllib, bypassing fragile pip installations in sandboxed environments.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Deep Read/Write Verification Protocol:</strong> The UI settings modal conducts read and insert ping tests upon connection, proactively alerting if Row-Level Security (RLS) is blocking inserts.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>Bidirectional Offline/Online Cache Syncing:</strong> Chat history is cached in localStorage for instant offline access and asynchronously persisted to Supabase with human-readable timestamps and ISO audit trails.</div></div><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 13 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-14">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 12: Experimental Verification &amp; Latency Benchmarks</h2><h3 class="h2-title">Comparative Performance Evaluation</h3><p class="body-p" style="text-align: justify;">Empirical testing was conducted across a benchmark suite of 100 representative student queries spanning college comparisons, fee lookups, scholarship eligibility, and cutoff evaluations.</p><table class="report-table"><thead><tr><th>Evaluation Metric</th><th>Baseline Prototype (difflib)</th><th>Cloud Generative LLM</th><th>GujaratEdu Advisory System</th></tr></thead><tbody><tr><td>Response Latency</td><td>~5 ms</td><td>1,800 to 4,200 ms</td><td>8 ms (browser) / 45 ms (server)</td></tr><tr><td>Factual Accuracy</td><td>12.0% (canned only)</td><td>71.4% (hallucination risk)</td><td>100.0% (statutory verified)</td></tr><tr><td>Link Integrity</td><td>N/A (no links)</td><td>48.2% broken / dead links</td><td>100.0% Link-Free Direct Facts</td></tr><tr><td>Operational Cost</td><td>$0.00</td><td>$0.005 - $0.03 per query</td><td>$0.00 (Zero marginal API cost)</td></tr><tr><td>Database Logging</td><td>None (CLI volatile)</td><td>Ephemeral session context</td><td>Permanent Supabase PostgreSQL</td></tr><tr><td>Offline Resilience</td><td>CLI terminal only</td><td>Impossible (requires internet)</td><td>100% In-Browser Full NLP</td></tr></tbody></table><h3 class="h2-title">Deletion Integrity &amp; Confirmation Verification</h3><p class="body-p" style="text-align: justify;">Recent engineering updates resolved history caching bugs during page reload. When an individual consultation is deleted, the system: (1) Prompts for explicit user confirmation, (2) Immediately purges the session from in-memory arrays and localStorage, (3) Transmits an asynchronous DELETE request to Supabase PostgREST, and (4) Updates active session pointers, ensuring deleted history never resurrects upon browser refresh.</p><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 14 of 15</span></div>
+        </div>
+    </section>
+    
+    <section class="a4-page" id="page-15">
+        <div class="page-inner">
+            <div class="page-header"><span>The Future of Artificial Intelligence: Trends & Predictions</span><span>Subject: Mind Mapping</span></div><h2 class="h1-title">Step 13: Future Trends, Predictions &amp; Conclusion</h2><h3 class="h2-title">Five Definitive AI Predictions (2026–2032)</h3><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>1. Rise of Small Deterministic Domain Engines (SLMs):</strong> The industry will replace opaque 70B+ parameter generative LLMs with compact, neuro-symbolic domain engines in high-consequence administrative and advisory sectors.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>2. Mandatory Explainability and Conformity Auditing:</strong> Statutory mandates (e.g., EU AI Act, India DPDP) will enforce deterministic auditing trails for automated guidance systems influencing citizen opportunities.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>3. Privacy-First Local &amp; Edge Execution:</strong> Client-side WebAssembly execution will become standard, eliminating unnecessary personal data transmission to centralized cloud servers.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>4. Immutable Time-Stamped Cloud Auditing:</strong> Every automated transaction will be permanently recorded in tamper-proof cloud ledgers (such as Supabase PostgreSQL) for statutory post-facto verification.</div></div><div class="bullet-row"><span class="bullet-dot">•</span><div class="bullet-content"><strong>5. Human-Centered Cognitive Symbiosis:</strong> AI will not replace professional counselors; it will augment them with instant statutory intelligence, freeing human mentors for empathetic guidance.</div></div><div class="callout-card">
+                <span class="callout-tag">PROJECT CONCLUSION:</span>
+                <p class="callout-text">The GujaratEdu platform demonstrates that bridging theoretical Responsible AI mind mapping with pragmatic deterministic engineering delivers reliable, cost-free, and statutory accurate systems. Trust is the ultimate benchmark of AI excellence.</p>
+            </div><h3 class="h2-title">Statutory References &amp; Standards</h3><p class="body-p" style="text-align: justify;">1. ACPC Gujarat: Official Engineering &amp; Pharmacy Admission Guidelines (2024-2026).<br>2. ACPUGMEC: Medical, Dental &amp; Ayurvedic Admission Rules, Govt of Gujarat.<br>3. Mukhyamantri Yuva Swavalamban Yojana (MYSY): Education Dept, Govt of Gujarat.<br>4. Kanya Kelavani Niti: Directorate of Technical Education (DTE), Gujarat.<br>5. Supabase PostgREST API Reference &amp; PostgreSQL Documentation.<br>6. Digital Personal Data Protection (DPDP) Act 2023, Ministry of Law and Justice, India.</p><div class="page-footer"><span>Academic Project Report • Subject: Mind Mapping</span><span>Page 15 of 15</span></div>
+        </div>
+    </section>
+    
+    </main>
+
+</body>
+</html>

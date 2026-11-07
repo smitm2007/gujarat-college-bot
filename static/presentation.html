@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Future of AI & GujaratEdu Advisory - Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-body: #f1f5f9;
+      --bg-slide: #ffffff;
+      --bg-card: #f8fafc;
+      --bg-card-hover: #f1f5f9;
+      --bg-primary-tint: #eef2ff;
+      --border-light: #e2e8f0;
+      --border-mid: #cbd5e1;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --primary: #4338ca;
+      --primary-hover: #3730a3;
+      --accent-teal: #0d9488;
+      --accent-emerald: #10b981;
+      --accent-red: #e11d48;
+      --accent-amber: #d97706;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.06);
+      --shadow-slide: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 40px;
+    }
+
+    /* TOP CONTROLS BAR */
+    .controls-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .controls-left, .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      border: 1px solid var(--border-mid);
+      background: #ffffff;
+      color: var(--text-sub);
+    }
+
+    .btn:hover {
+      background: var(--bg-card);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      color: #ffffff;
+    }
+
+    .slide-indicator {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--bg-primary-tint);
+      padding: 6px 14px;
+      border-radius: 9999px;
+    }
+
+    /* SLIDE STAGE */
+    .deck-container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-slide);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-slide);
+      position: relative;
+      overflow: hidden;
+      padding: 40px 52px 34px 52px;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* TOP ACCENT LINE */
+    .slide::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent-teal) 100%);
+    }
+
+    /* SLIDE HEADER */
+    .slide-header {
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+      flex-shrink: 0;
+    }
+
+    .slide-kicker {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      margin-bottom: 3px;
+    }
+
+    .slide-title {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* SLIDE BODY */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* SLIDE FOOTER */
+    .slide-footer {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .slide-footer-left {
+      font-weight: 500;
+    }
+
+    .slide-footer-right {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* GRIDS & CARDS */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-mid);
+    }
+
+    .card-tag {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card-tag.primary { color: var(--primary); }
+    .card-tag.teal { color: var(--accent-teal); }
+    .card-tag.amber { color: var(--accent-amber); }
+    .card-tag.red { color: var(--accent-red); }
+    .card-tag.emerald { color: var(--accent-emerald); }
+
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .card-content {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.55;
+    }
+
+    .card-content p + p {
+      margin-top: 8px;
+    }
+
+    .card-content strong {
+      color: var(--text-main);
+    }
+
+    /* 5 PILLARS HORIZONTAL */
+    .pillars-5-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      height: 100%;
+      margin-bottom: 12px;
+    }
+
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .pillar-badge {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .pillar-card h4 {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .pillar-card p {
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.45;
+    }
+
+    /* 3 PILLARS */
+    .pillars-3-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .synthesis-bar {
+      background: var(--bg-primary-tint);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 11.5px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .bottom-imperative {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-left: 4px solid var(--accent-teal);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-size: 12.5px;
+      color: var(--text-main);
+    }
+
+    .bottom-imperative strong {
+      color: var(--accent-teal);
+      text-transform: uppercase;
+      font-size: 10.5px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* TERMINAL / CODE BLOCKS */
+    .code-box-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .window-header {
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border-light);
+      padding: 8px 16px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #f87171; }
+    .dot.amber { background: #fbbf24; }
+    .dot.green { background: #34d399; }
+
+    .code-content {
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.55;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      color: var(--text-main);
+      background: var(--bg-card);
+      flex: 1;
+    }
+
+    .terminal-box {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .terminal-header {
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      padding: 8px 16px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-content {
+      padding: 16px 22px;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #f1f5f9;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .terminal-user { color: #38bdf8; font-weight: 700; }
+    .terminal-bot { color: #4ade80; font-weight: 700; }
+    .terminal-sys { color: #94a3b8; }
+
+    /* TABLE */
+    .table-clean {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .table-clean th {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      border: 1px solid var(--primary);
+    }
+
+    .table-clean td {
+      padding: 8px 14px;
+      border: 1px solid var(--border-light);
+      color: var(--text-sub);
+    }
+
+    .table-clean tr:nth-child(even) td {
+      background: var(--bg-card);
+    }
+
+    .table-clean td strong {
+      color: var(--text-main);
+    }
+
+    .table-clean td.col-adv {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* TITLE SLIDE SPECIFICS */
+    .title-slide-container {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 32px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .title-left h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin: 8px 0 10px 0;
+    }
+
+    .title-left p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .themes-card {
+      margin-top: 18px;
+      background: #ffffff;
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+    }
+
+    .themes-card h4 {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .themes-card p {
+      font-size: 11.5px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-bottom: 6px;
+    }
+
+    .meta-box {
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .meta-box h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-row {
+      margin-bottom: 12px;
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .meta-value {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .meta-value.highlight {
+      color: var(--primary);
+    }
+
+    /* PRINT SPECIFIC STYLES FOR CRISP PDF EXPORT */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+      }
+
+      .controls-bar {
+        display: none !important;
+      }
+
+      .deck-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .slide {
+        display: flex !important;
+        aspect-ratio: auto !important;
+        width: 100% !important;
+        height: 100vh !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 30px 40px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP ACTION BAR -->
+  <header class="controls-bar">
+    <div class="controls-left">
+      <span class="slide-indicator" id="slideIndicator">Slide 1 / 20</span>
+      <button class="btn" id="prevBtn" title="Previous Slide (Left Arrow)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Previous</span>
+      </button>
+      <button class="btn btn-primary" id="nextBtn" title="Next Slide (Right Arrow)">
+        <span>Next</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="controls-right">
+      <button class="btn" id="printPdfBtn" title="Save / Export presentation as PDF">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Export PDF</span>
+      </button>
+      <a href="index.html" class="btn" title="Open GujaratEdu Chatbot Web App">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span>Open Chatbot App</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- PRESENTATION DECK CONTAINER -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: TITLE SLIDE (From Image 1) -->
+    <section class="slide active" data-slide="1">
+      <div class="slide-body">
+        <div class="title-slide-container" style="grid-template-columns: 1.15fr 1.05fr; align-items: center;">
+          <div class="title-left" style="padding-left: 20px;">
+            <h1 style="font-size: 34px; line-height: 1.25; margin-bottom: 24px;">The Future of Artificial Intelligence:<br>Trends and Predictions</h1>
+            <p style="font-size: 22px; font-weight: 700; color: var(--primary);">Subject: Mind Mapping</p>
+          </div>
+
+          <div class="meta-box" style="padding: 32px 36px; border: 2px solid var(--primary); border-radius: var(--radius-lg); background: #ffffff;">
+            <div style="font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 18px; line-height: 1.4;">
+              Smit Mangukiya - <span style="color: var(--primary);">2510370034</span>
+            </div>
+            <div style="font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 18px; line-height: 1.4;">
+              Jainam Shah - <span style="color: var(--primary);">2510370081</span>
+            </div>
+            <div style="font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 18px; line-height: 1.4;">
+              Jainish Shah - <span style="color: var(--primary);">2510370082</span>
+            </div>
+            <div style="font-size: 20px; font-weight: 700; color: var(--text-main); line-height: 1.4;">
+              Dharmik Modha - <span style="color: var(--primary);">2510370115</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 1 of 20</span>
+      </footer>
+    </section>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 1 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 2: THE 5 PILLARS OF AI FRICTION (From Image 2) -->
+    <section class="slide" data-slide="2">
+      <header class="slide-header">
+        <div class="slide-kicker">FOUNDATIONAL CONCEPTS</div>
+        <h2 class="slide-title">The 5 Pillars of AI Friction</h2>
+        <p class="slide-subtitle">Systemic bottlenecks impeding responsible, trustworthy, and scalable artificial intelligence adoption</p>
+      </header>
+      <div class="slide-body">
+        <div class="pillars-5-grid">
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--primary);">Pillar 01</span>
+            <h4>Explainability</h4>
+            <p>Demystifying the "black box" nature of deep learning to ensure transparent, auditable decision-making.</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--accent-teal);">Pillar 02</span>
+            <h4>Privacy & Security</h4>
+            <p>Preventing breaches, unauthorized profiling, and systemic surveillance while safely utilizing training data.</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--accent-amber);">Pillar 03</span>
+            <h4>Bias & Fairness</h4>
+            <p>Mitigating training data skew and discriminatory algorithmic outputs to ensure equitable societal outcomes.</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--primary);">Pillar 04</span>
+            <h4>Regulation & Governance</h4>
+            <p>Harmonizing fragmented regulatory policies into accountable, actionable international frameworks.</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--accent-teal);">Pillar 05</span>
+            <h4>Impact on Employment</h4>
+            <p>Managing workforce displacement through worker reskilling, job transition, and human-centered AI augmentation.</p>
+          </div>
+        </div>
+        <div class="bottom-imperative">
+          <strong>Core Synthesis (From NotebookLM Framework)</strong>
+          Achieving "Responsible AI" requires concurrent solutions across all five systemic friction points.
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 2 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 3: PRIVACY AND SECURITY (From Image 3) -->
+    <section class="slide" data-slide="3">
+      <header class="slide-header">
+        <div class="slide-kicker">FRICTION POINT DEEP-DIVE</div>
+        <h2 class="slide-title">Privacy and Security</h2>
+        <p class="slide-subtitle">Pillar 1: Data integrity, user autonomy, and defensive machine learning architectures</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Overview</span>
+            <h4 class="card-title">Introduction about topic</h4>
+            <div class="card-content">
+              AI deployment requires vast amounts of personal data, leading to complex data collection and surveillance scenarios.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Objective</span>
+            <h4 class="card-title">Aim of topic</h4>
+            <div class="card-content">
+              To protect personal data from breaches or misuse while safely leveraging data for AI-driven insights and innovation.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Critical Gap</span>
+            <h4 class="card-title">Gap regarding topic</h4>
+            <div class="card-content">
+              Widespread risk of data breaches, unauthorized profiling, and AI-driven surveillance systems infringing on individual privacy rights.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Assessment</span>
+            <h4 class="card-title">Advantage & Disadvantage</h4>
+            <div class="card-content">
+              <p><strong>Advantage:</strong> AI improves security monitoring and threat detection in specific sectors.</p>
+              <p><strong>Disadvantage:</strong> Poses severe risks of widespread surveillance and large-scale privacy violations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 3 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 4: BIAS AND FAIRNESS (From Image 4) -->
+    <section class="slide" data-slide="4">
+      <header class="slide-header">
+        <div class="slide-kicker">FRICTION POINT DEEP-DIVE</div>
+        <h2 class="slide-title">Bias and Fairness</h2>
+        <p class="slide-subtitle">Pillar 2: Overcoming historical dataset skew and discriminatory algorithmic outputs</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Overview</span>
+            <h4 class="card-title">Introduction about topic</h4>
+            <div class="card-content">
+              The pressing risk of algorithmic bias within AI systems that can perpetuate or even exacerbate deeply rooted societal inequalities.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Objective</span>
+            <h4 class="card-title">Aim of topic</h4>
+            <div class="card-content">
+              To develop robust techniques that detect and mitigate biases in machine learning algorithms, ensuring fair and equitable decisions.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Critical Gap</span>
+            <h4 class="card-title">Gap regarding topic</h4>
+            <div class="card-content">
+              Training data inherently contains human biases, leading to discriminatory outcomes that are structurally difficult to filter out completely.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Assessment</span>
+            <h4 class="card-title">Advantage & Disadvantage</h4>
+            <div class="card-content">
+              <p><strong>Advantage:</strong> Potential for highly standardized, data-driven decision-making at scale.</p>
+              <p><strong>Disadvantage:</strong> Can lead to unfair hiring practices, unequal law enforcement, and deepened societal divides.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 4 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 5: REGULATION AND GOVERNANCE (From Image 5) -->
+    <section class="slide" data-slide="5">
+      <header class="slide-header">
+        <div class="slide-kicker">FRICTION POINT DEEP-DIVE</div>
+        <h2 class="slide-title">Regulation and Governance</h2>
+        <p class="slide-subtitle">Pillar 3: Establishing actionable legal compliance and cross-border standards</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Overview</span>
+            <h4 class="card-title">Introduction about topic</h4>
+            <div class="card-content">
+              The growing necessity for global regulatory frameworks and AI accountability to safely manage rapid technological advancement.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Objective</span>
+            <h4 class="card-title">Aim of topic</h4>
+            <div class="card-content">
+              To promote ethical standards, ensure transparency in decision-making processes, and prevent misuse while fostering continued innovation.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Critical Gap</span>
+            <h4 class="card-title">Gap regarding topic</h4>
+            <div class="card-content">
+              The regulatory landscape remains heavily fragmented; achieving meaningful consensus across different nations, cultures, and legal systems remains highly challenging.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Assessment</span>
+            <h4 class="card-title">Advantage & Disadvantage</h4>
+            <div class="card-content">
+              <p><strong>Advantage:</strong> Protects society from harmful consequences and unethical AI deployment.</p>
+              <p><strong>Disadvantage:</strong> Over-regulation could stifle innovation; global alignment is practically difficult to enforce.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 5 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 6: IMPACT ON EMPLOYMENT (From Image 6) -->
+    <section class="slide" data-slide="6">
+      <header class="slide-header">
+        <div class="slide-kicker">FRICTION POINT DEEP-DIVE</div>
+        <h2 class="slide-title">Impact on Employment</h2>
+        <p class="slide-subtitle">Pillar 4: Managing labor disruption through human-in-the-loop workforce augmentation</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Overview</span>
+            <h4 class="card-title">Introduction about topic</h4>
+            <div class="card-content">
+              The rapid rise of AI and automation sparking intense global debate regarding its disruptive impact on the modern job market.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Objective</span>
+            <h4 class="card-title">Aim of topic</h4>
+            <div class="card-content">
+              To transition the workforce smoothly, emphasizing human-centered AI that augments human abilities rather than replacing them entirely.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Critical Gap</span>
+            <h4 class="card-title">Gap regarding topic</h4>
+            <div class="card-content">
+              The massive financial and structural investments required immediately for worker retraining, reskilling, and proactive policy-making.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Assessment</span>
+            <h4 class="card-title">Advantage & Disadvantage</h4>
+            <div class="card-content">
+              <p><strong>Advantage:</strong> Radically increases efficiency and creates new opportunities in emerging tech fields.</p>
+              <p><strong>Disadvantage:</strong> Disrupts existing jobs, particularly in manufacturing, retail, and customer service.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 6 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 7: EXPLAINABILITY (From Image 7) -->
+    <section class="slide" data-slide="7">
+      <header class="slide-header">
+        <div class="slide-kicker">FRICTION POINT DEEP-DIVE</div>
+        <h2 class="slide-title">Explainability</h2>
+        <p class="slide-subtitle">Pillar 5: Demystifying deep neural networks to build human trust and auditability</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Overview</span>
+            <h4 class="card-title">Introduction about topic</h4>
+            <div class="card-content">
+              The "black box" nature of deep learning, where even creators cannot fully explain how algorithms reach specific, high-stakes decisions.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Objective</span>
+            <h4 class="card-title">Aim of topic</h4>
+            <div class="card-content">
+              To develop Explainable AI (XAI) that makes complex models transparent, interpretative, and understandable to human operators.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Critical Gap</span>
+            <h4 class="card-title">Gap regarding topic</h4>
+            <div class="card-content">
+              Balancing the deployment of highly accurate, complex deep learning models with the strict necessity for human interpretability and regulatory compliance.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Assessment</span>
+            <h4 class="card-title">Advantage & Disadvantage</h4>
+            <div class="card-content">
+              <p><strong>Advantage:</strong> Increases user trust, ensures accountability, and is critical for detecting hidden biases.</p>
+              <p><strong>Disadvantage:</strong> Interpretability techniques (visualizations, rule extraction) are difficult to build without sacrificing underlying model performance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 7 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 8: THE PATH TO RESPONSIBLE AI (From Image 8) -->
+    <section class="slide" data-slide="8">
+      <header class="slide-header">
+        <div class="slide-kicker">STRATEGIC ROADMAP</div>
+        <h2 class="slide-title">The Path to Responsible AI</h2>
+        <p class="slide-subtitle">Harmonizing technical capability with ethical sustainability through three actionable pillars</p>
+      </header>
+      <div class="slide-body">
+        <div class="pillars-3-grid">
+          <div class="card">
+            <span class="card-tag primary">Pillar 01</span>
+            <h4 class="card-title">Interdisciplinary Collaboration</h4>
+            <div class="card-content">
+              Technologists, ethicists, and policymakers must co-design systems to address both technical limits and societal impacts.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Pillar 02</span>
+            <h4 class="card-title">Robust & Resilient Design</h4>
+            <div class="card-content">
+              Models must be safeguarded against adversarial attacks, ensuring they operate within defined moral boundaries.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Pillar 03</span>
+            <h4 class="card-title">Proactive Governance</h4>
+            <div class="card-content">
+              Setting global standards that prioritize transparency and long-term consequences over immediate capabilities.
+            </div>
+          </div>
+        </div>
+
+        <div class="synthesis-bar">
+          ⚡ Technological Capability   &nbsp;&nbsp;&lt; ═════════  Unified Synthesis & Ethical Alignment  ═════════ &gt;&nbsp;&nbsp;   ⚖️ Ethical Sustainability
+        </div>
+
+        <div class="bottom-imperative">
+          <strong>Strategic Imperative (From NotebookLM Framework)</strong>
+          Responsible AI development must prioritize ethics and accountability at every stage to build a just, equitable, and sustainable future for all.
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 8 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 9: COLLEGE ENQUIRY CHATBOT USING PYTHON (From Image 9) -->
+    <section class="slide" data-slide="9">
+      <header class="slide-header">
+        <div class="slide-kicker">CASE STUDY: PROTOTYPE PHASE</div>
+        <h2 class="slide-title">College Enquiry Chatbot Using Python</h2>
+        <p class="slide-subtitle">Simple Rule-Based Chatbot using Python & standard library difflib</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Objective</span>
+            <h4 class="card-title">Project Objective</h4>
+            <div class="card-content">
+              Automate college enquiry responses using standard Python string matching and hardcoded question-answer pairs.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Mechanism</span>
+            <h4 class="card-title">Underlying Mechanism</h4>
+            <div class="card-content">
+              Evaluates user inputs via <code>difflib.get_close_matches(user, questions, n=1, cutoff=0.6)</code> to retrieve nearest keys.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Dataset</span>
+            <h4 class="card-title">Knowledge Scope</h4>
+            <div class="card-content">
+              Restricted to ~8 pre-configured questions covering Adani University landmark, B.Tech branches, and placement averages.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag emerald">Runtime</span>
+            <h4 class="card-title">Execution Environment</h4>
+            <div class="card-content">
+              Interactive console loop executing locally without external libraries, network calls, or web UI overhead.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 9 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 10: SOURCE CODE - INITIAL DIFFLIB (From Image 10) -->
+    <section class="slide" data-slide="10">
+      <header class="slide-header">
+        <div class="slide-kicker">PROTOTYPE IMPLEMENTATION</div>
+        <h2 class="slide-title">Source Code: Initial difflib Implementation</h2>
+        <p class="slide-subtitle">The baseline Python script utilizing dictionary lookup and string similarity matching</p>
+      </header>
+      <div class="slide-body">
+        <div class="code-box-wrapper">
+          <div class="window-header">
+            <div class="window-dots">
+              <span class="dot red"></span>
+              <span class="dot amber"></span>
+              <span class="dot green"></span>
+            </div>
+            <span>college_enquiry_bot.py (Python 3.12 Standard Library)</span>
+          </div>
+          <div class="code-content">import difflib
+
+print("Welcome to chatbot and type 'exit' to quit")
+
+data = {
+    "hii": "Hii Welcome to chatbot, what do you want from me:",
+    "how you are able to answer me questions": "I have a data from which i answer your questions.",
+    "in which language you are made": "I am Made in Python",
+    "what is the nearest landmark": "The nearest landmark is Vaishnodevi Circle on the SG Highway.",
+    "what courses do you offer": "We offer B.Tech, M.Tech, MBA, and Ph.D. programs across various engineering, management...",
+    "what are the btech branches available": "Our B.Tech branches include CSE, CSE (AI & ML), ICT, Civil & Infrastructure, Mechanical...",
+    "what are the main faculties or schools": "The university operates primarily through the Faculty of engineering & Technology (FEST)...",
+    "what mba specializations are there": "We offer MBAs in Infrastructure Management, Energy Management, Transportation, Urban...",
+    "how are the placements": "Placements are strong due to our backing by the Adani Group. Average package is around 5 to 7.5 Lakhs...",
+    "what is the highest placement package": "The highest package usually ranges between 14 to 15 Lakhs per annum..."
+}
+questions = list(data.keys())
+
+while True:
+    user = input("\nYou: ").strip().lower()
+    if user == 'exit':
+        print("Bot: Bye")
+        break
+    matches = difflib.get_close_matches(user, questions, n=1, cutoff=0.6)
+    if matches:
+        best_match = matches[0]
+        print("Bot:", data[best_match])
+    else:
+        print("Bot: I don't have answer about it in my knowledge.")</div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 10 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 11: OUTPUT - CONSOLE EXECUTION (From Image 11) -->
+    <section class="slide" data-slide="11">
+      <header class="slide-header">
+        <div class="slide-kicker">PROTOTYPE VERIFICATION</div>
+        <h2 class="slide-title">Output: Console-Based Prototype Execution</h2>
+        <p class="slide-subtitle">Simulated terminal run demonstrating canned dictionary query-response cycles</p>
+      </header>
+      <div class="slide-body">
+        <div class="terminal-box">
+          <div class="terminal-header">
+            <div class="window-dots">
+              <span class="dot red"></span>
+              <span class="dot amber"></span>
+              <span class="dot green"></span>
+            </div>
+            <span>bash - Terminal (Python Interactive Shell)</span>
+          </div>
+          <div class="terminal-content">
+<span class="terminal-sys">Welcome to chatbot and type 'exit' to quit</span>
+
+<span class="terminal-user">You:</span> hii
+<span class="terminal-bot">Bot:</span> Hii Welcome to chatbot, what do you want from me:
+
+<span class="terminal-user">You:</span> how you are able to answer me questions
+<span class="terminal-bot">Bot:</span> I have a data from which i answer your questions.
+
+<span class="terminal-user">You:</span> what courses do you offer
+<span class="terminal-bot">Bot:</span> We offer B.Tech, M.Tech, MBA, and Ph.D. programs across various engineering, management, and science disciplines.
+
+<span class="terminal-user">You:</span> what are the btech branches available
+<span class="terminal-bot">Bot:</span> Our B.Tech branches include CSE, CSE (AI & ML), ICT, Civil & Infrastructure, Electrical, Mechanical, Energy Engineering...
+
+<span class="terminal-user">You:</span> what is the nearest landmark
+<span class="terminal-bot">Bot:</span> The nearest landmark is Vaishnodevi Circle on the SG Highway.
+
+<span class="terminal-user">You:</span> how are the placements
+<span class="terminal-bot">Bot:</span> Placements are strong due to our backing by the Adani Group. The average package is around 5 to 7.5 Lakhs...
+
+<span class="terminal-user">You:</span> what is the highest placement package
+<span class="terminal-bot">Bot:</span> The highest package usually ranges between 14 to 15 Lakhs per annum, depending on the course and recruiting company.
+
+<span class="terminal-user">You:</span> exit
+<span class="terminal-bot">Bot:</span> Bye</div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 11 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 12: CRITICAL GAP ANALYSIS (Transition to Advanced Work) -->
+    <section class="slide" data-slide="12">
+      <header class="slide-header">
+        <div class="slide-kicker">ENGINEERING GAP ANALYSIS</div>
+        <h2 class="slide-title">Limitations of the Initial difflib Approach</h2>
+        <p class="slide-subtitle">Why simple string proximity fails for real-world higher education guidance</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag red">Natural Language Bottleneck</span>
+            <h4 class="card-title">1. Fragility to Natural Language</h4>
+            <div class="card-content">
+              Students rarely type pre-programmed sentences. Queries like <em>"Which private university in Ahmedabad has the lowest B.Tech fees?"</em> fail completely because no exact key exists in the static dictionary.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Statutory Rule Void</span>
+            <h4 class="card-title">2. Zero State Admission Domain Logic</h4>
+            <div class="card-content">
+              Cannot compute ACPC merit marks (50% Board PR + 50% GUJCET PR), evaluate ACPUGMEC medical quotas, or apply Gujarat Government scholarships (MYSY, Kanya Kelavani Niti, TFWS).
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag red">Semantic Skew</span>
+            <h4 class="card-title">3. High False Positive Rate</h4>
+            <div class="card-content">
+              <code>difflib</code> calculates character n-gram proximity without understanding semantics. Queries asking for "medical colleges" often matched completely unrelated fields due to common English words.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag primary">Storage Constraint</span>
+            <h4 class="card-title">4. Unscalable Knowledge Base</h4>
+            <div class="card-content">
+              A static dictionary cannot scale to cover 55+ accredited Gujarat universities, multi-tiered fee structures (Govt vs GMERS vs SFI), round-wise cutoffs, and reservation criteria.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 12 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 13: PROJECT EVOLUTION - GUJARATEDU -->
+    <section class="slide" data-slide="13">
+      <header class="slide-header">
+        <div class="slide-kicker">SYSTEM EVOLUTION</div>
+        <h2 class="slide-title">Project Evolution: The GujaratEdu Platform</h2>
+        <p class="slide-subtitle">Transforming a toy script into a production-grade, zero-LLM deterministic NLP engine</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Domain Focus</span>
+            <h4 class="card-title">Strictly 12th Science Focus</h4>
+            <div class="card-content">
+              Engineered exclusively for Gujarat admissions after 12th Science (Group A: PCM, Group B: PCB, Group AB: PCMB). Eliminates irrelevant domains to guarantee deep factual precision.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Zero LLM Architecture</span>
+            <h4 class="card-title">Zero Generative LLM Model APIs</h4>
+            <div class="card-content">
+              100% deterministic, explainable, cost-free, and hallucination-free. Utilizes Scikit-Learn TF-IDF vectorization, domain regex routers, and MediaWiki live scraping fallbacks.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">User-Centric Design</span>
+            <h4 class="card-title">100% Link-Free Direct Answers</h4>
+            <div class="card-content">
+              Delivers exact tuition amounts, cutoff percentiles, and statutory rules directly within the interface without redirecting users to broken or unverified external links.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag emerald">High Availability</span>
+            <h4 class="card-title">Dual-Engine High Availability</h4>
+            <div class="card-content">
+              Multi-threaded Python HTTP REST backend server coupled with an instant offline-first browser engine (<code>knowledge.js</code>) ensuring 100% operational uptime.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 13 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 14: TECHNICAL ARCHITECTURE -->
+    <section class="slide" data-slide="14">
+      <header class="slide-header">
+        <div class="slide-kicker">TECHNICAL ARCHITECTURE</div>
+        <h2 class="slide-title">System Architecture: Multi-Stage Processing Pipeline</h2>
+        <p class="slide-subtitle">End-to-end natural language understanding pipeline operating with deterministic precision</p>
+      </header>
+      <div class="slide-body">
+        <div class="pillars-5-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--primary);">Pipeline Step 1</span>
+            <h4>NLP Preprocessing</h4>
+            <p>• Token Normalization & Case folding<br>• Institution Alias Mapping (LDCE, VGEC, DA-IICT, PDEU)<br>• Group Identification (PCM / PCB / PCMB)</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--accent-teal);">Pipeline Step 2</span>
+            <h4>Multi-Criteria Router</h4>
+            <p>• Domain Regex Prioritizers<br>• Fee & Scholarship Detectors<br>• JEE Main vs GUJCET vs NEET Filter<br>• Low Marks Alternative Pathways</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--accent-amber);">Pipeline Step 3</span>
+            <h4>TF-IDF Engine</h4>
+            <p>• Cosine similarity across 55 verified institutions<br>• Domain Knowledge Corpus lookup<br>• MediaWiki live API fallback for unindexed topics</p>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-badge" style="color: var(--accent-emerald);">Pipeline Step 4</span>
+            <h4>Authoritative Synthesis</h4>
+            <p>• Structured tabular fee comparisons<br>• Statutory ACPC cutoff figures<br>• Clean Markdown rendering<br>• Zero hallucinations & zero dead links</p>
+          </div>
+        </div>
+        <div class="bottom-imperative">
+          <strong>Key Architectural Advantage</strong>
+          Combines high-speed deterministic pattern matching with statistical TF-IDF similarity to guarantee instant, transparent, and accurate responses.
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 14 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 15: KNOWLEDGE BASE -->
+    <section class="slide" data-slide="15">
+      <header class="slide-header">
+        <div class="slide-kicker">KNOWLEDGE ENGINEERING</div>
+        <h2 class="slide-title">Verified Knowledge Base: 55 Gujarat Institutions</h2>
+        <p class="slide-subtitle">Comprehensive multi-domain coverage across engineering, medical, pharmacy, and agriculture</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Engineering (ACPC)</span>
+            <h4 class="card-title">Government Engineering Colleges (GECs)</h4>
+            <div class="card-content">
+              • 16 GECs including LD College of Engineering (LDCE), VGEC Chandkheda, GEC Gandhinagar.<br>
+              • Subsidized Tuition: Only ₹1,500/year for boys.<br>
+              • <strong>100% FREE Tuition for all female students</strong> under Gujarat Govt <em>Kanya Kelavani Niti</em>.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Autonomous & SFI</span>
+            <h4 class="card-title">Premier Autonomous & Private Universities</h4>
+            <div class="card-content">
+              • DA-IICT Gandhinagar (ICT & CS flagship), Nirma University, PDEU Gandhinagar, Ahmedabad University, Charusat, Marwadi, LJ, Silver Oak.<br>
+              • High industry placement records & specialized All-India quotas via JEE Main.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Medical & Dental</span>
+            <h4 class="card-title">Medical & Dental Colleges (ACPUGMEC)</h4>
+            <div class="card-content">
+              • State Govt: BJMC Ahmedabad, GMC Baroda, Surat, Rajkot (₹25,000/yr nominal fee).<br>
+              • GMERS Semi-Govt: 13 Colleges across Sola, Gotri, Gandhinagar (₹3,30,000/yr Govt Quota).<br>
+              • Trust/SFI: Pramukhswami Karamsad, Sumandeep (₹6.0L - ₹8.5L/yr).
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag emerald">Allied Disciplines</span>
+            <h4 class="card-title">Pharmacy, Agriculture & Paramedical</h4>
+            <div class="card-content">
+              • Top Pharmacy: LM College of Pharmacy (LMCP), B.K. Mody Rajkot.<br>
+              • Agriculture: AAU Anand, JAU Junagadh, SDAU Sardarkrushinagar, NAU Navsari.<br>
+              • Paramedical: GCAS B.Sc Nursing, Physiotherapy, Radiography.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 15 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 16: DOMAIN COUNSELING INTELLIGENCE -->
+    <section class="slide" data-slide="16">
+      <header class="slide-header">
+        <div class="slide-kicker">DOMAIN INTELLIGENCE</div>
+        <h2 class="slide-title">Domain-Specific Admission & Counseling Intelligence</h2>
+        <p class="slide-subtitle">Accurate mathematical formulas, reservation rules, and statutory admission criteria</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Merit Formulation</span>
+            <h4 class="card-title">ACPC Engineering Merit Formula</h4>
+            <div class="card-content">
+              <strong>Merit Marks = (50% × 12th Board PCM PR) + (50% × GUJCET PR)</strong><br>
+              • Applicable to 95% Gujarat State Quota seats.<br>
+              • GUJCET is compulsory for all State quota admissions in Govt, Grant-in-Aid, and SFI institutes.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Centralized Medical</span>
+            <h4 class="card-title">ACPUGMEC Medical & Dental Rules</h4>
+            <div class="card-content">
+              • 100% based on NEET-UG All India Overall Rank.<br>
+              • 85% Gujarat State Quota managed strictly through centralized counseling.<br>
+              • 3-tier fee clarity: Govt (₹25k) vs GMERS (₹3.3L) vs Private Trust (₹6L - ₹8.5L).
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Financial Aid</span>
+            <h4 class="card-title">Gujarat State Scholarship Schemes</h4>
+            <div class="card-content">
+              • <strong>MYSY:</strong> 50% tuition subsidy up to ₹2,00,000/yr for Medical & ₹50,000/yr for Engineering (≥80 PR & income ≤₹6 LPA).<br>
+              • <strong>Kanya Kelavani Niti:</strong> 100% FREE tuition for girls in Govt colleges.<br>
+              • <strong>Freeship Card:</strong> Full fee waiver for SC/ST students.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag emerald">Inclusive Pathways</span>
+            <h4 class="card-title">Low Marks & Alternative Pathways</h4>
+            <div class="card-content">
+              Modest percentiles in 12th Science do not close doors in Gujarat:<br>
+              • <strong>GCAS BCA & B.Sc IT:</strong> Math eligibility without engineering cutoff pressures.<br>
+              • <strong>D2D Lateral Entry:</strong> Diploma to Degree engineering progression.<br>
+              • <strong>Paramedical & Nursing:</strong> ANM/GNM, B.Sc Nursing & Life Sciences.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 16 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 17: FULL-STACK WEB ARCHITECTURE -->
+    <section class="slide" data-slide="17">
+      <header class="slide-header">
+        <div class="slide-kicker">FULL-STACK IMPLEMENTATION</div>
+        <h2 class="slide-title">Full-Stack Architecture & High Availability</h2>
+        <p class="slide-subtitle">Multi-threaded Python server coupled with an offline-first browser engine</p>
+      </header>
+      <div class="slide-body">
+        <div class="pillars-3-grid" style="height: 100%;">
+          <div class="card">
+            <span class="card-tag primary">Tier 1: Backend</span>
+            <h4 class="card-title">Multi-Threaded Python Server</h4>
+            <div class="card-content">
+              • Native <code>ThreadingHTTPServer</code> handling concurrent requests.<br>
+              • Line-buffered UTF-8 logging with robust CORS handling.<br>
+              • REST API endpoints: <code>/api/chat</code>, <code>/api/status</code>, and <code>/api/institutions</code>.<br>
+              • Zero external web framework dependencies (no Flask/Django overhead).
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Tier 2: Frontend Engine</span>
+            <h4 class="card-title">Dual-Engine Client Fallback</h4>
+            <div class="card-content">
+              • Complete 55-institution offline database packed directly into client JavaScript (<code>knowledge.js</code>, 107 KB).<br>
+              • Seamless automatic fallback: If the Python server is offline or opened via <code>file:///</code>, the browser engine answers queries instantly.<br>
+              • Eliminates network error popups completely.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Tier 3: Orchestration</span>
+            <h4 class="card-title">Automated Launcher</h4>
+            <div class="card-content">
+              • Automated environment verification and Python binary detection.<br>
+              • One-click launcher script (<code>run_webapp.bat</code>) boots the server and launches the browser.<br>
+              • Complete sandbox security compliance with graceful termination.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 17 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 18: PROFESSIONAL UI/UX -->
+    <section class="slide" data-slide="18">
+      <header class="slide-header">
+        <div class="slide-kicker">FRONTEND ENGINEERING</div>
+        <h2 class="slide-title">Professional UI/UX: ChatGPT-Inspired Interface</h2>
+        <p class="slide-subtitle">Sleek, distraction-free design with persistent session history and vector PDF export</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Landing State</span>
+            <h4 class="card-title">ChatGPT-Style Minimalist Welcome Screen</h4>
+            <div class="card-content">
+              • Clean centered greeting: <em>"What can I help you with today?"</em><br>
+              • Subtle educational emblem with zero visual clutter.<br>
+              • Uncluttered conversational canvas that prioritizes the student's question.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Interactive Dock</span>
+            <h4 class="card-title">Suggestions Dock Above Search Bar</h4>
+            <div class="card-content">
+              • Compact, horizontally-scrollable suggestion pill strip directly above the search input.<br>
+              • One-click execution for top queries: Private Univs in Ahmedabad, Medical Fees, JEE Main, MYSY Scholarships, and Low Marks Pathways.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Persistence</span>
+            <h4 class="card-title">Multi-Session Chat History Management</h4>
+            <div class="card-content">
+              • Full session management stored locally in browser <code>localStorage</code>.<br>
+              • <code>+ New Chat</code> action button, auto-generated session titles, active session indicator, and individual session deletion.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag emerald">Reporting</span>
+            <h4 class="card-title">Vector-Print PDF Report Generator</h4>
+            <div class="card-content">
+              • Custom <code>@media print</code> stylesheet that hides sidebars, inputs, and buttons during printing.<br>
+              • Generates formal, publication-ready consultation reports with official Gujarat Education advisory headers, timestamps, and sharp vector typography.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 18 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 19: COMPARATIVE BENCHMARK -->
+    <section class="slide" data-slide="19">
+      <header class="slide-header">
+        <div class="slide-kicker">TECHNICAL EVALUATION</div>
+        <h2 class="slide-title">Comparative Evaluation: Prototype vs. GujaratEdu</h2>
+        <p class="slide-subtitle">Direct benchmark comparing the baseline difflib script against the production advisory system</p>
+      </header>
+      <div class="slide-body">
+        <table class="table-clean">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Evaluation Metric</th>
+              <th style="width: 38%;">Initial difflib Prototype (Baseline)</th>
+              <th style="width: 40%;">GujaratEdu Advisory Platform (Advanced)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Query Processing Engine</strong></td>
+              <td>Character-level string matching (<code>difflib.get_close_matches</code>)</td>
+              <td class="col-adv">Multi-stage NLP tokenizer, Regex router, and Scikit-Learn TF-IDF</td>
+            </tr>
+            <tr>
+              <td><strong>Knowledge Coverage</strong></td>
+              <td>~8 hardcoded questions for a single university</td>
+              <td class="col-adv">55 verified Gujarat Science institutions (Engg, Med, Agri, Pharma)</td>
+            </tr>
+            <tr>
+              <td><strong>Admission Rules & Cutoffs</strong></td>
+              <td>None (rigid static strings only)</td>
+              <td class="col-adv">Exact ACPC & ACPUGMEC merit formulas, NEET cutoffs, and MYSY tiers</td>
+            </tr>
+            <tr>
+              <td><strong>Generative LLM Dependency</strong></td>
+              <td>Zero (simple rule script)</td>
+              <td class="col-adv">Zero (100% deterministic, explainable, and cost-free)</td>
+            </tr>
+            <tr>
+              <td><strong>High Availability & Fallback</strong></td>
+              <td>Terminal only; crashes on unhandled exceptions</td>
+              <td class="col-adv">Dual-Engine: Multi-threaded Python server + offline browser engine</td>
+            </tr>
+            <tr>
+              <td><strong>User Interface & Features</strong></td>
+              <td>Monochrome CLI terminal with exit command</td>
+              <td class="col-adv">Modern ChatGPT-style Web App, session history, voice, & PDF export</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 19 of 20</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 20: CONCLUSION & FUTURE DIRECTIONS -->
+    <section class="slide" data-slide="20">
+      <header class="slide-header">
+        <div class="slide-kicker">SUMMARY & CONCLUSION</div>
+        <h2 class="slide-title">Conclusion: Realizing Responsible AI in Education</h2>
+        <p class="slide-subtitle">Demonstrating that explainable, deterministic systems outperform opaque black-box models in high-stakes domains</p>
+      </header>
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <div class="card">
+            <span class="card-tag primary">Explainability</span>
+            <h4 class="card-title">Explainability Without Hallucinations</h4>
+            <div class="card-content">
+              By anchoring answers directly to statutory government criteria, accredited fee orders, and deterministic TF-IDF matching, GujaratEdu guarantees 100% factual accuracy with zero risk of generative hallucinations.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag teal">Accessibility</span>
+            <h4 class="card-title">Democratizing Student Advisory Across Gujarat</h4>
+            <div class="card-content">
+              Delivers authoritative counseling guidance to thousands of 12th Science students across urban and rural Gujarat—explaining reservation benefits, MYSY scholarships, and low-marks alternative degrees.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag amber">Ethical Alignment</span>
+            <h4 class="card-title">Operationalizing the 5 Pillars of Responsible AI</h4>
+            <div class="card-content">
+              Puts theoretical AI friction principles into practice: completely privacy-preserving (no user telemetry), bias-free (statutory merit formulas), and transparently auditable.
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-tag emerald">Roadmap</span>
+            <h4 class="card-title">Future Enhancements & Scalability</h4>
+            <div class="card-content">
+              Planned expansions include automated ACPC round-by-round merit rank tracking, multilingual Gujarati language speech synthesis, and centralized GCAS university integration.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="slide-footer-left">The Future of AI & GujaratEdu Advisory System</span>
+        <span class="slide-footer-right">Slide 20 of 20</span>
+      </footer>
+    </section>
+
+  </main>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideIndicator = document.getElementById('slideIndicator');
+    const printPdfBtn = document.getElementById('printPdfBtn');
+    let currentSlide = 1;
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      currentSlide = index;
+
+      slides.forEach(s => s.classList.remove('active'));
+      const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      if (activeSlide) activeSlide.classList.add('active');
+
+      slideIndicator.textContent = `Slide ${currentSlide} / ${totalSlides}`;
+      prevBtn.disabled = (currentSlide === 1);
+      nextBtn.disabled = (currentSlide === totalSlides);
+      prevBtn.style.opacity = (currentSlide === 1) ? '0.5' : '1';
+      nextBtn.style.opacity = (currentSlide === totalSlides) ? '0.5' : '1';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'Home') {
+        showSlide(1);
+      } else if (e.key === 'End') {
+        showSlide(totalSlides);
+      }
+    });
+
+    printPdfBtn.addEventListener('click', () => {
+      window.print();
+    });
+
+    showSlide(1);
+  </script>
+</body>
+</html>
