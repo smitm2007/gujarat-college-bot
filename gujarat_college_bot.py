@@ -1305,6 +1305,22 @@ def format_college_profile(college: dict, query: str) -> str:
         out.append(college.get("overview", ""))
     return clean_text("\n".join(out))
 
+def get_welcome_greeting() -> str:
+    return clean_text("""### 👋 Welcome to GujaratEdu!
+
+Hii! Welcome to **GujaratEdu Higher Education Advisory**.
+
+You can ask any questions related to **higher studies and admissions after 12th Science in Gujarat** (Group A - PCM, Group B - PCB, and Group AB - PCMB):
+
+* **Courses & Degrees:** B.E. / B.Tech engineering branches, MBBS, BDS, B.Pharm, B.Sc (Agriculture, IT, Pure Sciences), Physiotherapy (BPT), Nursing, etc.
+* **Admissions & Merit:** ACPC engineering & pharmacy counseling, ACPUGMEC medical admissions, GUJCET weightage, and JEE Main seats in Gujarat.
+* **Colleges & Universities:** DA-IICT, Nirma, LDCE, VGEC, IIT Gandhinagar, SVNIT, PDPU, MSU Baroda, BJ Medical, GMERS, and top private universities.
+* **Fees & Scholarships:** Government vs. SFI private college fees, MYSY (₹2,00,000 / ₹50,000 subsidy), Kanya Kelavani (Free education for girls), and TFWS quota.
+* **Cutoffs & Career Guidance:** Closing merit ranks, guidance for low marks/percentile, and branch comparisons.
+
+💬 **How can I help you today?** Type your question below (for example: *"Top engineering colleges in Ahmedabad"* or *"MBBS government college fees"*).
+""")
+
 # ==============================================================================
 # MASTER QUERY ROUTER (12th SCIENCE ONLY - GUJARAT ONLY)
 # ==============================================================================
@@ -1315,6 +1331,11 @@ def answer_query(query: str) -> str:
         return "Please ask a question regarding higher education after 12th Science in Gujarat."
 
     q_lower = clean_q.lower()
+
+    # 0. Greetings & Welcome Handler
+    if re.search(r'^(?:hi+|hey+|hello+|hlo+|namaste|kem\s*cho|kemcho|good\s*(?:morning|afternoon|evening)|greetings?)(?:\s+(?:there|bot|sir|madam|all|gujaratedu))?[!?,.\s]*$', q_lower) or \
+       re.search(r'^(?:who are you|what can you do|how are you|how can you help|help me)[!?,.\s]*$', q_lower):
+        return get_welcome_greeting()
 
     # 1. Dynamic Multi-Criteria Institution Filter & Listing
     # (e.g., "Give me the names of private university of ahemdabad for btech", "Government engineering colleges in Ahmedabad")

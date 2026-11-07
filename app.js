@@ -1339,6 +1339,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const insts = k.institutions || [];
     const qLower = query.toLowerCase().trim();
 
+    // 0. Greetings & Welcome Handler
+    if (/^(?:hi+|hey+|hello+|hlo+|namaste|kem\s*cho|kemcho|good\s*(?:morning|afternoon|evening)|greetings?)(?:\s+(?:there|bot|sir|madam|all|gujaratedu))?[!?,.\s]*$/i.test(qLower) ||
+        /^(?:who are you|what can you do|how are you|how can you help|help me)[!?,.\s]*$/i.test(qLower)) {
+      return `### 👋 Welcome to GujaratEdu!
+
+Hii! Welcome to **GujaratEdu Higher Education Advisory**.
+
+You can ask any questions related to **higher studies and admissions after 12th Science in Gujarat** (Group A - PCM, Group B - PCB, and Group AB - PCMB):
+
+* **Courses & Degrees:** B.E. / B.Tech engineering branches, MBBS, BDS, B.Pharm, B.Sc (Agriculture, IT, Pure Sciences), Physiotherapy (BPT), Nursing, etc.
+* **Admissions & Merit:** ACPC engineering & pharmacy counseling, ACPUGMEC medical admissions, GUJCET weightage, and JEE Main seats in Gujarat.
+* **Colleges & Universities:** DA-IICT, Nirma, LDCE, VGEC, IIT Gandhinagar, SVNIT, PDPU, MSU Baroda, BJ Medical, GMERS, and top private universities.
+* **Fees & Scholarships:** Government vs. SFI private college fees, MYSY (₹2,00,000 / ₹50,000 subsidy), Kanya Kelavani (Free education for girls), and TFWS quota.
+* **Cutoffs & Career Guidance:** Closing merit ranks, guidance for low marks/percentile, and branch comparisons.
+
+💬 **How can I help you today?** Type your question below (for example: *"Top engineering colleges in Ahmedabad"* or *"MBBS government college fees"*).`;
+    }
+
     // 1. Dynamic Multi-Criteria Listing (Checked FIRST, except for pure fee/cutoff/jee queries)
     const listResult = parseAndFilterOffline(qLower, insts);
     if (listResult) {
