@@ -2,7 +2,6 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" },
     { "source": "/presentation", "destination": "/presentation.html" },
     { "source": "/report", "destination": "/project_report_15_pages.html" }
   ]
